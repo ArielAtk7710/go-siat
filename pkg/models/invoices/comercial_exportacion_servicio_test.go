@@ -2,14 +2,13 @@ package invoices_test
 
 import (
 	"context"
-	"encoding/xml"
 	"testing"
 	"time"
 
-	"github.com/ron86i/go-siat"
-	"github.com/ron86i/go-siat/pkg/models"
-	"github.com/ron86i/go-siat/pkg/models/invoices"
-	"github.com/ron86i/go-siat/pkg/utils"
+	"github.com/ron86i/go-siat/v2"
+	"github.com/ron86i/go-siat/v2/pkg/models"
+	"github.com/ron86i/go-siat/v2/pkg/models/invoices"
+	"github.com/ron86i/go-siat/v2/pkg/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -75,17 +74,8 @@ func TestComercialExportacionServicios_Computarizada(t *testing.T) {
 		AddDetalle(detalle).
 		Build()
 
-	xmlData, _ := xml.Marshal(factura)
-	hashString, encodedArchivo, err := utils.CompressAndHash(xmlData)
-	if err != nil {
-		t.Fatalf("error preparando archivo: %v", err)
-	}
-
-	req := models.Computarizada().NewRecepcionFacturaBuilder().
-		WithCodigoAmbiente(tc.Ambiente).
+	builderReq := models.NewRecepcionFacturaBuilder().
 		WithCodigoModalidad(tc.Modalidad).
-		WithCodigoSistema(tc.Sistema).
-		WithNit(tc.Nit).
 		WithCodigoSucursal(0).
 		WithCodigoDocumentoSector(28).
 		WithCodigoEmision(1).
@@ -93,12 +83,16 @@ func TestComercialExportacionServicios_Computarizada(t *testing.T) {
 		WithCufd(cufd).
 		WithCuis(cuis).
 		WithTipoFacturaDocumento(2).
-		WithArchivo(encodedArchivo).
-		WithFechaEnvio(fechaEmision).
-		WithHashArchivo(hashString).
-		Build()
+		WithFechaEnvio(fechaEmision)
 
-	resp, err := tc.Client.Computarizada().RecepcionFactura(context.Background(), tc.Config, req)
+	err := builderReq.WithFactura(factura, tc.Client.Config())
+	if err != nil {
+		t.Fatalf("error al preparar factura: %v", err)
+	}
+
+	req := builderReq.Build()
+
+	resp, err := tc.Client.Computarizada().RecepcionFactura(context.Background(), req)
 	if err != nil {
 		t.Fatalf("error en solicitud: %v", err)
 	}

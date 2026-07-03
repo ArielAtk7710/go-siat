@@ -3,7 +3,7 @@ package siat
 import (
 	"net/http"
 
-	"github.com/ron86i/go-siat/internal/adapter/services"
+	"github.com/ron86i/go-siat/v2/internal/adapter/services"
 )
 
 // HTTPConfig es la configuración pública para personalizar el cliente HTTP del SDK.
@@ -30,8 +30,8 @@ type HTTPConfig = services.HTTPConfig
 // Valores:
 //   - Timeout: 45 segundos
 //   - MaxIdleConns: 100
-//   - MaxConnsPerHost: 10
-//   - MaxIdleConnsPerHost: 5
+//   - MaxConnsPerHost: 0 (Sin límite)
+//   - MaxIdleConnsPerHost: 100
 //   - TLSMinVersion: TLS 1.2
 //
 // Esta es la configuración usada por defecto si no pasas un http.Client a New().

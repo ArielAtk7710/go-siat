@@ -1,8 +1,12 @@
 package siat
 
 import (
-	"github.com/ron86i/go-siat/internal/core/errors"
+	"github.com/ron86i/go-siat/v2/internal/core/domain/siat/common"
+	"github.com/ron86i/go-siat/v2/internal/core/errors"
 )
+
+// MensajeServicio representa un mensaje devuelto por el servidor SIAT.
+type MensajeServicio = common.MensajeServicio
 
 // SiatError es el tipo de error que retorna el SDK.
 // Permite al usuario distinguir entre diferentes tipos de errores:

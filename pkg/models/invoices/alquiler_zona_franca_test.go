@@ -2,14 +2,13 @@ package invoices_test
 
 import (
 	"context"
-	"encoding/xml"
 	"testing"
 	"time"
 
-	"github.com/ron86i/go-siat"
-	"github.com/ron86i/go-siat/pkg/models"
-	"github.com/ron86i/go-siat/pkg/models/invoices"
-	"github.com/ron86i/go-siat/pkg/utils"
+	"github.com/ron86i/go-siat/v2"
+	"github.com/ron86i/go-siat/v2/pkg/models"
+	"github.com/ron86i/go-siat/v2/pkg/models/invoices"
+	"github.com/ron86i/go-siat/v2/pkg/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -23,10 +22,6 @@ func TestAlquilerZonaFranca_Computarizada(t *testing.T) {
 
 	nombreRazonSocial := "LOCATARIO ZF"
 	codigoPuntoVenta := 0
-	cantidad := 1.0
-	precioUnitario := 500.0
-	montoDescuento := 0.0
-	_ = (cantidad * precioUnitario) - montoDescuento
 
 	cabecera := invoices.NewAlquilerZFCabeceraBuilder().
 		WithNitEmisor(tc.Nit).
@@ -70,17 +65,7 @@ func TestAlquilerZonaFranca_Computarizada(t *testing.T) {
 		WithModalidad(tc.Modalidad).
 		Build()
 
-	xmlData, _ := xml.Marshal(factura)
-	hashString, encodedArchivo, err := utils.CompressAndHash(xmlData)
-	if err != nil {
-		t.Fatalf("error preparando archivo: %v", err)
-	}
-
-	req := models.Computarizada().NewRecepcionFacturaBuilder().
-		WithCodigoAmbiente(tc.Ambiente).
-		WithCodigoModalidad(tc.Modalidad).
-		WithCodigoSistema(tc.Sistema).
-		WithNit(tc.Nit).
+	builderReq := models.NewRecepcionFacturaBuilder().
 		WithCodigoSucursal(0).
 		WithCodigoDocumentoSector(22).
 		WithCodigoEmision(1).
@@ -88,12 +73,16 @@ func TestAlquilerZonaFranca_Computarizada(t *testing.T) {
 		WithCufd(cufd).
 		WithCuis(cuis).
 		WithTipoFacturaDocumento(1).
-		WithArchivo(encodedArchivo).
-		WithFechaEnvio(fechaEmision).
-		WithHashArchivo(hashString).
-		Build()
+		WithFechaEnvio(fechaEmision)
 
-	resp, err := tc.Client.Computarizada().RecepcionFactura(context.Background(), tc.Config, req)
+	err := builderReq.WithFactura(factura, tc.Client.Config())
+	if err != nil {
+		t.Fatalf("error al preparar factura: %v", err)
+	}
+
+	req := builderReq.Build()
+
+	resp, err := tc.Client.Computarizada().RecepcionFactura(context.Background(), req)
 	if err != nil {
 		t.Fatalf("error en solicitud: %v", err)
 	}

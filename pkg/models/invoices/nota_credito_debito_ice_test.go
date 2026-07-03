@@ -6,10 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ron86i/go-siat"
-	"github.com/ron86i/go-siat/pkg/models"
-	"github.com/ron86i/go-siat/pkg/models/invoices"
-	"github.com/ron86i/go-siat/pkg/utils"
+	"github.com/ron86i/go-siat/v2"
+	"github.com/ron86i/go-siat/v2/pkg/models"
+	"github.com/ron86i/go-siat/v2/pkg/models/invoices"
+	"github.com/ron86i/go-siat/v2/pkg/utils"
 )
 
 func TestNotaCreditoDebitoIceBuilder(t *testing.T) {
@@ -173,17 +173,14 @@ func TestNotaCreditoDebitoIceIntegration_Computarizada(t *testing.T) {
 	}
 
 	// 6. Solicitud de recepción
-	req := models.DocumentoAjuste().NewRecepcionBuilder().
-		WithCodigoAmbiente(tc.Ambiente).
+	req := models.NewRecepcionDocumentoAjusteBuilder().
+		WithCodigoModalidad(tc.Modalidad).
 		WithCodigoDocumentoSector(48).
 		WithCodigoEmision(siat.EmisionOnline).
-		WithCodigoModalidad(tc.Modalidad).
 		WithCodigoPuntoVenta(tc.PuntoVenta).
-		WithCodigoSistema(tc.Sistema).
 		WithCodigoSucursal(tc.Sucursal).
 		WithCufd(cufd).
 		WithCuis(cuis).
-		WithNit(tc.Nit).
 		WithTipoFacturaDocumento(3).
 		WithArchivo(encoded).
 		WithFechaEnvio(fecha).
@@ -191,7 +188,7 @@ func TestNotaCreditoDebitoIceIntegration_Computarizada(t *testing.T) {
 		Build()
 
 	// 7. Intentar envío
-	resp, err := service.RecepcionDocumentoAjuste(context.Background(), tc.Config, req)
+	resp, err := service.RecepcionDocumentoAjuste(context.Background(), req)
 	if err != nil {
 		t.Fatalf("Error en la comunicación con el SIAT: %v", err)
 	}
@@ -290,17 +287,13 @@ func TestNotaCreditoDebitoIceIntegration_Electronica(t *testing.T) {
 	}
 
 	// 6. Solicitud de recepción
-	req := models.DocumentoAjuste().NewRecepcionBuilder().
-		WithCodigoAmbiente(tc.Ambiente).
+	req := models.NewRecepcionDocumentoAjusteBuilder().
 		WithCodigoDocumentoSector(48).
 		WithCodigoEmision(siat.EmisionOnline).
-		WithCodigoModalidad(tc.Modalidad).
 		WithCodigoPuntoVenta(tc.PuntoVenta).
-		WithCodigoSistema(tc.Sistema).
 		WithCodigoSucursal(tc.Sucursal).
 		WithCufd(cufd).
 		WithCuis(cuis).
-		WithNit(tc.Nit).
 		WithTipoFacturaDocumento(3).
 		WithArchivo(encoded).
 		WithFechaEnvio(fecha).
@@ -308,7 +301,7 @@ func TestNotaCreditoDebitoIceIntegration_Electronica(t *testing.T) {
 		Build()
 
 	// 7. Intentar envío
-	resp, err := service.RecepcionDocumentoAjuste(context.Background(), tc.Config, req)
+	resp, err := service.RecepcionDocumentoAjuste(context.Background(), req)
 	if err != nil {
 		t.Fatalf("Error en la comunicación con el SIAT: %v", err)
 	}

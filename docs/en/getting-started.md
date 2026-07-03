@@ -34,7 +34,7 @@
 ## Installation
 
 ```bash
-go get github.com/ron86i/go-siat
+go get github.com/ron86i/go-siat/v2
 ```
 
 This installs the SDK and its minimal dependencies:
@@ -93,8 +93,8 @@ import (
     "fmt"
     "time"
 
-    "github.com/ron86i/go-siat"
-    "github.com/ron86i/go-siat/pkg/models"
+    "github.com/ron86i/go-siat/v2"
+    "github.com/ron86i/go-siat/v2/pkg/models"
 )
 
 func main() {
@@ -110,7 +110,7 @@ func main() {
     }
 
     // 3. Build the request using the Builder pattern
-    req := models.Codigos().NewVerificarNitBuilder().
+    req := models.NewVerificarNitBuilder().
         WithNit(123456789).
         Build()
 
@@ -170,7 +170,7 @@ graph LR
 ### Step 1: Obtain CUIS (System Identification Code)
 
 ```go
-cuisReq := models.Codigos().NewCuisBuilder().
+cuisReq := models.NewCuisBuilder().
     WithCodigoAmbiente(siat.AmbientePruebas).
     WithCodigoModalidad(siat.ModalidadElectronica).
     WithCodigoPuntoVenta(0).
@@ -186,7 +186,7 @@ cuis := cuisResp.Body.Content.RespuestaCuis.Codigo
 ### Step 2: Obtain CUFD (Daily Invoicing Code)
 
 ```go
-cufdReq := models.Codigos().NewCufdBuilder().
+cufdReq := models.NewCufdBuilder().
     WithCodigoAmbiente(siat.AmbientePruebas).
     WithCodigoModalidad(siat.ModalidadElectronica).
     WithCodigoPuntoVenta(0).
@@ -204,7 +204,7 @@ cufdControl := cufdResp.Body.Content.RespuestaCufd.CodigoControl
 ### Step 3: Generate CUF (Unique Invoice Code)
 
 ```go
-import "github.com/ron86i/go-siat/pkg/utils"
+import "github.com/ron86i/go-siat/v2/pkg/utils"
 
 fechaEmision := time.Now()
 cuf, err := utils.GenerarCUF(
@@ -224,7 +224,7 @@ cuf, err := utils.GenerarCUF(
 ### Step 4: Build the Invoice
 
 ```go
-import "github.com/ron86i/go-siat/pkg/models/invoices"
+import "github.com/ron86i/go-siat/v2/pkg/models/invoices"
 
 nombre := "CUSTOMER NAME"
 cabecera := invoices.NewCompraVentaCabeceraBuilder().
@@ -276,7 +276,7 @@ hash, archivoBase64, err := utils.CompressAndHash(signedXML)
 ### Step 6: Send to SIAT
 
 ```go
-recepcionReq := models.Electronica().NewRecepcionFacturaBuilder().
+recepcionReq := models.NewRecepcionFacturaBuilder().
     WithCodigoAmbiente(siat.AmbientePruebas).
     WithNit(nit).
     WithCufd(cufd).

@@ -55,7 +55,7 @@ func DefaultHTTPConfig() HTTPConfig {
 		Timeout:             45 * time.Second,
 		MaxIdleConns:        100,
 		MaxConnsPerHost:     0,               
-		MaxIdleConnsPerHost: 5,                
+		MaxIdleConnsPerHost: 100,                
 		TLSMinVersion:       tls.VersionTLS12, 
 		DisableKeepAlives:   false,
 		IdleConnTimeout:     90 * time.Second,
