@@ -16,5 +16,5 @@ jobs:
       - uses: googleapis/release-please-action@v5
         id: release
         with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           release-type: go
-          # Opcional: si quieres que también empaquete código, podrías agregar GoReleaser después
