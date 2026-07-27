@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.0](https://github.com/ron86i/go-siat/compare/v2.0.2...v2.1.0) (2026-07-27)
+
+
+### Features
+
+* **invoices:** add sectors 19 and 38, hydrocarbons with and without IEHD ([c170a20](https://github.com/ron86i/go-siat/commit/c170a20f3147821eacee39c12034523f063be510))
+
+
+### Bug Fixes
+
+* **utils:** drop redundant gzip/base64 roundtrip in ExportTarGz ([ed9550d](https://github.com/ron86i/go-siat/commit/ed9550d6123f861b36c3a62dda9cf4a030d2aa00))
+
 ## [2.0.2](https://github.com/ron86i/go-siat/compare/v2.0.1...v2.0.2) (2026-07-15)
 
 
