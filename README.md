@@ -4,9 +4,9 @@
 
 <p align="center">
   <a href="https://masterminds.github.io/stability/active.html"><img src="https://masterminds.github.io/stability/active.svg" alt="Stability: Active"></a>
-  <a href="https://goreportcard.com/report/github.com/ron86i/go-siat"><img src="https://goreportcard.com/badge/github.com/ron86i/go-siat" alt="Go Report Card"></a>
+  <a href="https://goreportcard.com/report/github.com/ron86i/go-siat/v2"><img src="https://goreportcard.com/badge/github.com/ron86i/go-siat/v2" alt="Go Report Card"></a>
   <br>
-  <a href="https://pkg.go.dev/github.com/ron86i/go-siat"><img src="https://pkg.go.dev/badge/github.com/ron86i/go-siat.svg" alt="Go Reference"></a>
+  <a href="https://pkg.go.dev/github.com/ron86i/go-siat/v2"><img src="https://pkg.go.dev/badge/github.com/ron86i/go-siat/v2.svg" alt="Go Reference"></a>
   <a href="https://go.dev/"><img src="https://img.shields.io/github/go-mod/go-version/ron86i/go-siat?style=flat" alt="Go Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/github/license/ron86i/go-siat?style=flat" alt="License"></a>
   <a href="https://github.com/ron86i/go-siat/releases"><img src="https://img.shields.io/github/v/release/ron86i/go-siat?style=flat&label=release" alt="Latest Release"></a>
@@ -62,7 +62,7 @@ The SDK covers the critical services of the SIAT ecosystem:
 | **Online Electronic**    | Full support for invoicing with digital signature.                                        |
 | **Online Computerized**  | Support for modalities without digital signature.                                         |
 | **Specialized Sectors**  | Services for Telecommunications, Basic Services, Financial Entities, and Airline Tickets. |
-| **Special Sectors**      | Verified support for the **48 regulatory sectors** of SIAT.                               |
+| **Special Sectors**      | Builders for **48 of SIAT's 51 regulatory sectors**, each verified against the pilot server.                               |
 
 ---
 
@@ -82,7 +82,9 @@ go get github.com/ron86i/go-siat/v2
 > [!TIP]
 > **Context Best Practices**: Always provide a context with a timeout (e.g., 30s) to all SDK calls. Avoid using `context.Background()` directly to prevent hanging requests if the SIAT server is slow.
 
-### Example: Verifying NIT
+### Example: Requesting a CUIS
+
+Every SIAT flow starts by requesting a **CUIS** (System Start Code), so this is the shortest end-to-end call you can make.
 
 ```go
 package main
@@ -90,33 +92,47 @@ package main
 import (
     "context"
     "fmt"
+    "log"
+    "time"
+
     "github.com/ron86i/go-siat/v2"
     "github.com/ron86i/go-siat/v2/pkg/models"
 )
 
 func main() {
-    // 1. Initialize the client configuration
-    config := siat.Config{
+    // 1. Configure the client once. Taxpayer identity lives here,
+    //    so you never repeat it on every call.
+    s, err := siat.New(siat.Config{
         Token:          "YOUR_SIAT_TOKEN",
         Nit:            123456789,
         CodigoSistema:  "YOUR_SYSTEM_CODE",
-        CodigoAmbiente: 2, // Testing
-        BaseURL:        "YOUR_SIAT_URL",
+        CodigoAmbiente: siat.AmbientePruebas,
+        BaseURL:        "https://pilotosiatservicios.impuestos.gob.bo/v2",
+    })
+    if err != nil {
+        log.Fatal(err)
     }
-    s, _ := siat.New(config)
 
-    // 2. Prepare the request using builders
-    req := models.NewVerificarNitBuilder().
-        WithNit(123456789).
+    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+    defer cancel()
+
+    // 2. Build the request. Only per-request fields are needed.
+    req := models.NewCuisBuilder().
+        WithCodigoSucursal(0).
+        WithCodigoPuntoVenta(0).
+        WithCodigoModalidad(siat.ModalidadElectronica).
         Build()
 
-    // 3. Execute call
-    resp, err := s.Codigos().VerificarNit(context.Background(), req)
+    // 3. Call the service, then verify SIAT accepted it.
+    resp, err := s.Codigos().SolicitudCuis(ctx, req)
     if err != nil {
-        panic(err)
+        log.Fatal(err) // network / transport failure
+    }
+    if err := siat.Verify(resp.Body.Content.RespuestaCuis); err != nil {
+        log.Fatal(err) // SIAT rejected the request
     }
 
-    fmt.Printf("NIT Transaction status: %v\n", resp.Body.Content.RespuestaVerificarNit.Transaccion)
+    fmt.Println("CUIS:", resp.Body.Content.RespuestaCuis.Codigo)
 }
 ```
 
