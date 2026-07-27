@@ -12,17 +12,23 @@ import (
 // Campos principales:
 //   - Timeout: Timeout total para solicitudes (default: 45s)
 //   - MaxIdleConns: Pool global de conexiones ociosas (default: 100)
-//   - MaxConnsPerHost: Conexiones simultáneas por host (default: 10)
+//   - MaxConnsPerHost: Conexiones simultáneas por host (default: 0, sin límite)
 //   - TLSMinVersion: Versión mínima de TLS (default: TLS 1.2)
 //
 // Ejemplo:
 //
-//	cfg := siat.HTTPConfig{
-//		Timeout:         60 * time.Second,
-//		MaxConnsPerHost: 5,
-//	}
-//	client := siat.NewHTTPClient(cfg)
-//	s, _ := siat.New(baseUrl, client)
+//	cfg := siat.DefaultHTTPConfig()
+//	cfg.Timeout = 60 * time.Second
+//	cfg.MaxConnsPerHost = 5
+//
+//	s, _ := siat.New(siat.Config{
+//		Token:          "...",
+//		Nit:            123456789,
+//		CodigoSistema:  "...",
+//		CodigoAmbiente: siat.AmbientePruebas,
+//		BaseURL:        "https://pilotosiatservicios.impuestos.gob.bo/v2",
+//		HTTPClient:     siat.NewHTTPClient(cfg),
+//	})
 type HTTPConfig = services.HTTPConfig
 
 // DefaultHTTPConfig retorna la configuración HTTP recomendada para producción.
@@ -46,8 +52,9 @@ func DefaultHTTPConfig() HTTPConfig {
 //
 //	cfg := siat.DefaultHTTPConfig()
 //	cfg.Timeout = 60 * time.Second
-//	client := siat.NewHTTPClient(cfg)
-//	s, err := siat.New(baseUrl, client)
+//
+//	config.HTTPClient = siat.NewHTTPClient(cfg)
+//	s, err := siat.New(config)
 func NewHTTPClient(cfg HTTPConfig) *http.Client {
 	return services.NewHTTPClient(cfg)
 }

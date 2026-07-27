@@ -4,9 +4,9 @@
 
 <p align="center">
   <a href="https://masterminds.github.io/stability/active.html"><img src="https://masterminds.github.io/stability/active.svg" alt="Stability: Active"></a>
-  <a href="https://goreportcard.com/report/github.com/ron86i/go-siat"><img src="https://goreportcard.com/badge/github.com/ron86i/go-siat" alt="Go Report Card"></a>
+  <a href="https://goreportcard.com/report/github.com/ron86i/go-siat/v2"><img src="https://goreportcard.com/badge/github.com/ron86i/go-siat/v2" alt="Go Report Card"></a>
   <br>
-  <a href="https://pkg.go.dev/github.com/ron86i/go-siat"><img src="https://pkg.go.dev/badge/github.com/ron86i/go-siat.svg" alt="Go Reference"></a>
+  <a href="https://pkg.go.dev/github.com/ron86i/go-siat/v2"><img src="https://pkg.go.dev/badge/github.com/ron86i/go-siat/v2.svg" alt="Go Reference"></a>
   <a href="https://go.dev/"><img src="https://img.shields.io/github/go-mod/go-version/ron86i/go-siat?style=flat" alt="Go Version"></a>
   <a href="../../LICENSE"><img src="https://img.shields.io/github/license/ron86i/go-siat?style=flat" alt="Licencia"></a>
   <a href="https://github.com/ron86i/go-siat/releases"><img src="https://img.shields.io/github/v/release/ron86i/go-siat?style=flat&label=release" alt="Última Versión"></a>

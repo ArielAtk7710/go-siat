@@ -3,7 +3,6 @@ package utils
 import (
 	"archive/tar"
 	"bytes"
-	"encoding/base64"
 	"encoding/xml"
 	"fmt"
 	"os"
@@ -87,19 +86,9 @@ func ExportTarGz(facturas []any, signer XMLSigner, path string) error {
 		return fmt.Errorf("error closing tar writer: %w", err)
 	}
 
-	// Compress using the existing compress utility which returns base64 string
-	// But since we want to export to a raw .tar.gz file, we should write the raw gzip bytes.
-	// Wait, CompressAndHash returns base64 string. 
-	// To save to disk as a binary .tar.gz, we should decode the base64 back to binary,
-	// or use a raw compression method. Let's decode the base64.
-	_, b64EncodedArchivo, err := CompressAndHash(tarBuf.Bytes())
+	rawGzBytes, err := Gzip(tarBuf.Bytes())
 	if err != nil {
 		return fmt.Errorf("error compressing to gzip: %w", err)
-	}
-
-	rawGzBytes, err := base64.StdEncoding.DecodeString(b64EncodedArchivo)
-	if err != nil {
-		return fmt.Errorf("error decoding base64 gzip: %w", err)
 	}
 
 	return os.WriteFile(path, rawGzBytes, 0644)

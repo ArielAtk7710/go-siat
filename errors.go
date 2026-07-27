@@ -17,7 +17,7 @@ type MensajeServicio = common.MensajeServicio
 //
 // Ejemplo:
 //
-//	resp, err := s.Codigos().SolicitudCuis(ctx, cfg, req)
+//	resp, err := s.Codigos().SolicitudCuis(ctx, req)
 //	if err != nil {
 //	    var siatErr *siat.SiatError
 //	    if errors.As(err, &siatErr) {

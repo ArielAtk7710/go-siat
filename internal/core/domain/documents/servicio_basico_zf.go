@@ -8,18 +8,18 @@ import (
 
 // FacturaServicioBasicoZF representa la estructura raíz para documentos del sector 40 (Servicio Básico Zona Franca).
 type FacturaServicioBasicoZF struct {
-	XMLName           xml.Name                `json:"-"`
-	XmlnsXsi          string                  `xml:"xmlns:xsi,attr" json:"-"`
-	XsiSchemaLocation string                  `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
-	Cabecera          CabeceraServicioBasicoZF  `xml:"cabecera" json:"cabecera"`
-	Detalle           []DetalleServicioBasico `xml:"detalle" json:"detalle"`
+	XMLName           xml.Name                 `json:"-"`
+	XmlnsXsi          string                   `xml:"xmlns:xsi,attr" json:"-"`
+	XsiSchemaLocation string                   `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
+	Cabecera          CabeceraServicioBasicoZF `xml:"cabecera" json:"cabecera"`
+	Detalle           []DetalleServicioBasico  `xml:"detalle" json:"detalle"`
 }
 
 // CabeceraServicioBasicoZF define los campos de cabecera específicos para el sector 40.
 type CabeceraServicioBasicoZF struct {
-	NitEmisor                      int64                     `xml:"nitEmisor" json:"nitEmisor"`
-	RazonSocialEmisor              string                    `xml:"razonSocialEmisor" json:"razonSocialEmisor"`
-	Municipio                      string                    `xml:"municipio" json:"municipio"`
+	NitEmisor                    int64                     `xml:"nitEmisor" json:"nitEmisor"`
+	RazonSocialEmisor            string                    `xml:"razonSocialEmisor" json:"razonSocialEmisor"`
+	Municipio                    string                    `xml:"municipio" json:"municipio"`
 	Telefono                     datatype.Nilable[string]  `xml:"telefono" json:"telefono"`
 	NumeroFactura                int64                     `xml:"numeroFactura" json:"numeroFactura"`
 	Cuf                          string                    `xml:"cuf" json:"cuf"`

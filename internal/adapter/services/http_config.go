@@ -18,11 +18,11 @@ type HTTPConfig struct {
 	MaxIdleConns int
 
 	// MaxConnsPerHost es el número máximo de conexiones simultáneas por host
-	// (default: 10). Limita la concurrencia al SIAT.
+	// (default: 0, sin límite). Limita la concurrencia al SIAT.
 	MaxConnsPerHost int
 
 	// MaxIdleConnsPerHost es el número máximo de conexiones ociosas por host
-	// que se mantienen en el pool (default: 5).
+	// que se mantienen en el pool (default: 100).
 	MaxIdleConnsPerHost int
 
 	// TLSMinVersion especifica la versión mínima de TLS (default: TLS 1.2)
@@ -54,9 +54,9 @@ func DefaultHTTPConfig() HTTPConfig {
 	return HTTPConfig{
 		Timeout:             45 * time.Second,
 		MaxIdleConns:        100,
-		MaxConnsPerHost:     0,               
-		MaxIdleConnsPerHost: 100,                
-		TLSMinVersion:       tls.VersionTLS12, 
+		MaxConnsPerHost:     0,
+		MaxIdleConnsPerHost: 100,
+		TLSMinVersion:       tls.VersionTLS12,
 		DisableKeepAlives:   false,
 		IdleConnTimeout:     90 * time.Second,
 		DialTimeout:         10 * time.Second,
@@ -70,10 +70,11 @@ func DefaultHTTPConfig() HTTPConfig {
 //
 // Ejemplo:
 //
-//	cfg := service.DefaultHTTPConfig()
+//	cfg := services.DefaultHTTPConfig()
 //	cfg.Timeout = 60 * time.Second // Customizar si necesario
-//	client := service.NewHTTPClient(cfg)
-//	s, err := siat.New(baseUrl, client)
+//
+//	config.HTTPClient = services.NewHTTPClient(cfg)
+//	s, err := siat.New(config)
 func NewHTTPClient(cfg HTTPConfig) *http.Client {
 	transport := &http.Transport{
 		MaxIdleConns:        cfg.MaxIdleConns,

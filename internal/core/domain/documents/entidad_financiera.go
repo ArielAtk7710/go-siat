@@ -8,10 +8,10 @@ import (
 
 // FacturaEntidadFinanciera representa la estructura completa de una factura de Entidad Financiera para el SIAT.
 type FacturaEntidadFinanciera struct {
-	XMLName           xml.Name                 `json:"-"`
-	XmlnsXsi          string                   `xml:"xmlns:xsi,attr" json:"-"`
-	XsiSchemaLocation string                   `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
-	Cabecera          CabeceraEntidadFinanciera `xml:"cabecera" json:"cabecera"`
+	XMLName           xml.Name                   `json:"-"`
+	XmlnsXsi          string                     `xml:"xmlns:xsi,attr" json:"-"`
+	XsiSchemaLocation string                     `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
+	Cabecera          CabeceraEntidadFinanciera  `xml:"cabecera" json:"cabecera"`
 	Detalle           []DetalleEntidadFinanciera `xml:"detalle" json:"detalle"`
 }
 

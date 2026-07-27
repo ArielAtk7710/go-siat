@@ -6,22 +6,26 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 )
 
-// FacturaTelecomunicacionesZF representa la estructura completa de una factura de Telecomunicaciones Zona Franca para el SIAT.
-type FacturaTelecomunicacionesZF struct {
-	XMLName           xml.Name                      `json:"-"`
-	XmlnsXsi          string                        `xml:"xmlns:xsi,attr" json:"-"`
-	XsiSchemaLocation string                        `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
-	Cabecera          CabeceraTelecomunicacionesZF  `xml:"cabecera" json:"cabecera"`
-	Detalle           []DetalleTelecomunicacionesZF `xml:"detalle" json:"detalle"`
+// FacturaHidrocarburoNoAlcanzadaIehd representa la estructura completa de una factura de
+// Hidrocarburos No Alcanzada por el IEHD (Sector 38) para el SIAT.
+type FacturaHidrocarburoNoAlcanzadaIehd struct {
+	XMLName           xml.Name                             `json:"-"`
+	XmlnsXsi          string                               `xml:"xmlns:xsi,attr" json:"-"`
+	XsiSchemaLocation string                               `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
+	Cabecera          CabeceraHidrocarburoNoAlcanzadaIehd  `xml:"cabecera" json:"cabecera"`
+	Detalle           []DetalleHidrocarburoNoAlcanzadaIehd `xml:"detalle" json:"detalle"`
 }
 
-// CabeceraTelecomunicacionesZF contiene la información general del sector telecomunicaciones en Zona Franca.
-type CabeceraTelecomunicacionesZF struct {
+// CabeceraHidrocarburoNoAlcanzadaIehd contiene la información general y del cliente de la factura.
+// El orden de los campos es EXTREMADAMENTE CRÍTICO y sigue el XSD ver.11/03/2022.
+//
+// Es idéntica a CabeceraHidrocarburoAlcanzadaIehd salvo por la ausencia de MontoIehd,
+// que no aplica a las actividades exentas del pago del IEHD.
+type CabeceraHidrocarburoNoAlcanzadaIehd struct {
 	NitEmisor                    int64                     `xml:"nitEmisor" json:"nitEmisor"`
 	RazonSocialEmisor            string                    `xml:"razonSocialEmisor" json:"razonSocialEmisor"`
 	Municipio                    string                    `xml:"municipio" json:"municipio"`
 	Telefono                     datatype.Nilable[string]  `xml:"telefono" json:"telefono"`
-	NitConjunto                  datatype.Nilable[int64]   `xml:"nitConjunto" json:"nitConjunto"`
 	NumeroFactura                int64                     `xml:"numeroFactura" json:"numeroFactura"`
 	Cuf                          string                    `xml:"cuf" json:"cuf"`
 	Cufd                         string                    `xml:"cufd" json:"cufd"`
@@ -34,14 +38,18 @@ type CabeceraTelecomunicacionesZF struct {
 	NumeroDocumento              string                    `xml:"numeroDocumento" json:"numeroDocumento"`
 	Complemento                  datatype.Nilable[string]  `xml:"complemento" json:"complemento"`
 	CodigoCliente                string                    `xml:"codigoCliente" json:"codigoCliente"`
+	Ciudad                       datatype.Nilable[string]  `xml:"ciudad" json:"ciudad"`
+	NombrePropietario            datatype.Nilable[string]  `xml:"nombrePropietario" json:"nombrePropietario"`
+	NombreRepresentanteLegal     datatype.Nilable[string]  `xml:"nombreRepresentanteLegal" json:"nombreRepresentanteLegal"`
+	CondicionPago                datatype.Nilable[string]  `xml:"condicionPago" json:"condicionPago"`
+	PeriodoEntrega               datatype.Nilable[string]  `xml:"periodoEntrega" json:"periodoEntrega"`
 	CodigoMetodoPago             int                       `xml:"codigoMetodoPago" json:"codigoMetodoPago"`
 	NumeroTarjeta                datatype.Nilable[int64]   `xml:"numeroTarjeta" json:"numeroTarjeta"`
 	MontoTotal                   float64                   `xml:"montoTotal" json:"montoTotal"`
-	MontoTotalSujetoIva          float64                   `xml:"montoTotalSujetoIva" json:"montoTotalSujetoIva"` // Siempre 0
+	MontoTotalSujetoIva          float64                   `xml:"montoTotalSujetoIva" json:"montoTotalSujetoIva"`
 	CodigoMoneda                 int                       `xml:"codigoMoneda" json:"codigoMoneda"`
 	TipoCambio                   float64                   `xml:"tipoCambio" json:"tipoCambio"`
 	MontoTotalMoneda             float64                   `xml:"montoTotalMoneda" json:"montoTotalMoneda"`
-	MontoGiftCard                datatype.Nilable[float64] `xml:"montoGiftCard" json:"montoGiftCard"`
 	DescuentoAdicional           datatype.Nilable[float64] `xml:"descuentoAdicional" json:"descuentoAdicional"`
 	CodigoExcepcion              datatype.Nilable[int]     `xml:"codigoExcepcion" json:"codigoExcepcion"`
 	Cafc                         datatype.Nilable[string]  `xml:"cafc" json:"cafc"`
@@ -50,8 +58,9 @@ type CabeceraTelecomunicacionesZF struct {
 	CodigoDocumentoSector        int                       `xml:"codigoDocumentoSector" json:"codigoDocumentoSector"`
 }
 
-// DetalleTelecomunicacionesZF representa un ítem o producto dentro de la factura.
-type DetalleTelecomunicacionesZF struct {
+// DetalleHidrocarburoNoAlcanzadaIehd representa un ítem dentro de la factura.
+// Es idéntico a DetalleHidrocarburoAlcanzadaIehd salvo por la ausencia de PorcentajeIehd.
+type DetalleHidrocarburoNoAlcanzadaIehd struct {
 	ActividadEconomica string                    `xml:"actividadEconomica" json:"actividadEconomica"`
 	CodigoProductoSin  int64                     `xml:"codigoProductoSin" json:"codigoProductoSin"`
 	CodigoProducto     string                    `xml:"codigoProducto" json:"codigoProducto"`
@@ -61,6 +70,4 @@ type DetalleTelecomunicacionesZF struct {
 	PrecioUnitario     float64                   `xml:"precioUnitario" json:"precioUnitario"`
 	MontoDescuento     datatype.Nilable[float64] `xml:"montoDescuento" json:"montoDescuento"`
 	SubTotal           float64                   `xml:"subTotal" json:"subTotal"`
-	NumeroSerie        datatype.Nilable[string]  `xml:"numeroSerie" json:"numeroSerie"`
-	NumeroImei         datatype.Nilable[string]  `xml:"numeroImei" json:"numeroImei"`
 }

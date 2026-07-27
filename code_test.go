@@ -40,7 +40,7 @@ func TestIsValidationCode(t *testing.T) {
 	for _, code := range validationCodes {
 		assert.True(t, siat.IsValidationCode(code), "Code %d should be validation", code)
 	}
-	
+
 	nonValidationCodes := []int{901, 908, 967, 991, 995, 2000, 3000}
 	for _, code := range nonValidationCodes {
 		assert.False(t, siat.IsValidationCode(code), "Code %d should not be validation", code)
@@ -52,7 +52,7 @@ func TestIsWarningCode(t *testing.T) {
 	for _, code := range warningCodes {
 		assert.True(t, siat.IsWarningCode(code), "Code %d should be warning", code)
 	}
-	
+
 	nonWarningCodes := []int{1999, 2020, 3000, 3005, 991}
 	for _, code := range nonWarningCodes {
 		assert.False(t, siat.IsWarningCode(code), "Code %d should not be warning", code)
