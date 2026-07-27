@@ -9,7 +9,7 @@ Agradecemos el interés en contribuir a go-siat. Este documento describe el proc
 - Go 1.25 o superior
 - Git
 - Familiaridad con SIAT (Sistema Integrado de Administración Tributaria)
-- Lectura de la [Guía de Arquitectura](../../docs/es/arquitectura.md)
+- Lectura de la [Guía de Arquitectura](../../docs/es/explanation/arquitectura.md)
 
 ## 🚀 Comenzar
 
@@ -349,7 +349,7 @@ Código CUFD válido
 ## 📖 Recursos
 
 - [Go Code Review Comments](https://github.com/golang/go/wiki/CodeReviewComments)
-- [Guía de Arquitectura](../../docs/es/arquitectura.md) - Diseño del proyecto
+- [Guía de Arquitectura](../../docs/es/explanation/arquitectura.md) - Diseño del proyecto
 - [SIAT Documentation](https://www.impuestos.gob.bo/) - Documentación oficial SIAT
 
 ## ✨ Gracias
