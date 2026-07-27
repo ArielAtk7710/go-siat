@@ -30,7 +30,7 @@ type RecepcionPaqueteComprasResponse struct {
 
 // ValidacionRecepcionPaqueteCompras representa el envoltorio para la validación de paquetes de compras.
 type ValidacionRecepcionPaqueteCompras struct {
-	XMLName                            xml.Name                           `xml:"ns:validacionRecepcionPaqueteCompras" json:"-"`
+	XMLName                             xml.Name                            `xml:"ns:validacionRecepcionPaqueteCompras" json:"-"`
 	SolicitudValidacionRecepcionCompras SolicitudValidacionRecepcionCompras `xml:"SolicitudValidacionRecepcionCompras" json:"SolicitudValidacionRecepcionCompras"`
 }
 
@@ -52,7 +52,7 @@ type AnulacionCompraResponse struct {
 
 // ConfirmacionCompras representa el envoltorio para la confirmación de compras.
 type ConfirmacionCompras struct {
-	XMLName                     xml.Name                  `xml:"ns:confirmacionCompras" json:"-"`
+	XMLName                      xml.Name                  `xml:"ns:confirmacionCompras" json:"-"`
 	SolicitudConfirmacionCompras SolicitudRecepcionCompras `xml:"SolicitudConfirmacionCompras" json:"SolicitudConfirmacionCompras"`
 }
 

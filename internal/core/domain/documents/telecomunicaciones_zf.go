@@ -8,10 +8,10 @@ import (
 
 // FacturaTelecomunicacionesZF representa la estructura completa de una factura de Telecomunicaciones Zona Franca para el SIAT.
 type FacturaTelecomunicacionesZF struct {
-	XMLName           xml.Name                     `json:"-"`
-	XmlnsXsi          string                       `xml:"xmlns:xsi,attr" json:"-"`
-	XsiSchemaLocation string                       `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
-	Cabecera          CabeceraTelecomunicacionesZF `xml:"cabecera" json:"cabecera"`
+	XMLName           xml.Name                      `json:"-"`
+	XmlnsXsi          string                        `xml:"xmlns:xsi,attr" json:"-"`
+	XsiSchemaLocation string                        `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
+	Cabecera          CabeceraTelecomunicacionesZF  `xml:"cabecera" json:"cabecera"`
 	Detalle           []DetalleTelecomunicacionesZF `xml:"detalle" json:"detalle"`
 }
 

@@ -146,4 +146,3 @@ func GetConfigFromContext(ctx context.Context) (Config, bool) {
 	cfg, ok := ctx.Value(dynamicConfigKey).(Config)
 	return cfg, ok
 }
-

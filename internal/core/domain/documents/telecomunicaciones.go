@@ -8,9 +8,9 @@ import (
 
 // FacturaTelecomunicaciones representa la estructura completa de una factura de Telecomunicaciones para el SIAT.
 type FacturaTelecomunicaciones struct {
-	XMLName           xml.Name                   `json:"-"`
-	XmlnsXsi          string                     `xml:"xmlns:xsi,attr" json:"-"`
-	XsiSchemaLocation string                     `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
+	XMLName           xml.Name                    `json:"-"`
+	XmlnsXsi          string                      `xml:"xmlns:xsi,attr" json:"-"`
+	XsiSchemaLocation string                      `xml:"xsi:noNamespaceSchemaLocation,attr" json:"-"`
 	Cabecera          CabeceraTelecomunicaciones  `xml:"cabecera" json:"cabecera"`
 	Detalle           []DetalleTelecomunicaciones `xml:"detalle" json:"detalle"`
 }
