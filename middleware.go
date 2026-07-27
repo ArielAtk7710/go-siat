@@ -25,8 +25,7 @@ import (
 //
 //	// Uso
 //	s, err := siat.NewWithMiddleware(
-//	    baseUrl,
-//	    nil, // usa defaults
+//	    config,
 //	    &RetryMiddleware{maxAttempts: 3},
 //	)
 type HTTPMiddleware = middleware.HTTPMiddleware
