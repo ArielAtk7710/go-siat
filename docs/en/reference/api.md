@@ -278,7 +278,7 @@ invoices.New<Sector>DetalleBuilder()    // one line item
 invoices.New<Sector>Builder()           // WithModalidad, WithCabecera, AddDetalle, Build
 ```
 
-All 48 with builders are listed in [Sectors](../explanation/sectors.md#the-full-sector-catalog).
+All 50 with builders are listed in [Sectors](../explanation/sectors.md#the-full-sector-catalog).
 
 ---
 

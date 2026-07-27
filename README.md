@@ -62,7 +62,7 @@ The SDK covers the critical services of the SIAT ecosystem:
 | **Online Electronic**    | Full support for invoicing with digital signature.                                        |
 | **Online Computerized**  | Support for modalities without digital signature.                                         |
 | **Specialized Sectors**  | Services for Telecommunications, Basic Services, Financial Entities, and Airline Tickets. |
-| **Special Sectors**      | Builders for **48 of SIAT's 51 regulatory sectors**, each verified against the pilot server.                               |
+| **Special Sectors**      | Builders for **50 of SIAT's 51 regulatory sectors**, each verified against the pilot server.                               |
 
 ---
 

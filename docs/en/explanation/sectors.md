@@ -27,7 +27,7 @@ A mismatch is rejected with code `932 — CODIGO DOCUMENTO SECTOR NO CORRESPONDE
 
 ## Every sector builder shares the same shape
 
-All 49 builders in `pkg/models/invoices` (48 codes, one of which has two layouts) follow one pattern, so learning one teaches you all of them:
+All 51 builders in `pkg/models/invoices` (50 codes, one of which has two layouts) follow one pattern, so learning one teaches you all of them:
 
 ```go
 cabecera := invoices.NewHotelCabeceraBuilder().
@@ -71,7 +71,7 @@ SIAT exposes twelve SOAP endpoints. Which one accepts your invoice is not a free
 | `s.BoletoAereo()` | BoletoAereo (30) |
 | `s.DocumentoAjuste()` | NotaCreditoDebito (24), NotaFiscalCreditoDebito (24), NotaConciliacion (29), NotaCreditoDebitoDescuento (47), NotaCreditoDebitoIce (48) |
 
-**The other 35 sectors route by modality**, not by activity. Pick the facade that matches how you are invoicing:
+**The other 37 sectors route by modality**, not by activity. Pick the facade that matches how you are invoicing:
 
 ```go
 s.Electronica().RecepcionFactura(ctx, req)     // ModalidadElectronica — signed
@@ -86,7 +86,7 @@ Both expose the same nine-method interface, so switching modality is a one-word 
 
 ## The full sector catalog
 
-SIAT's regulatory catalog defines **51 document sector codes**. The SDK ships builders for **48 of them**; the three gaps are flagged below.
+SIAT's regulatory catalog defines **51 document sector codes**. The SDK ships builders for **50 of them**; the single gap is flagged below.
 
 Builder names drop the `New`/`Builder` wrapper — `CompraVenta` means `invoices.NewCompraVentaBuilder()`. In the **Facade** column, *Modality* means `Electronica()` or `Computarizada()` depending on how you are invoicing.
 
@@ -110,7 +110,7 @@ Builder names drop the `New`/`Builder` wrapper — `CompraVenta` means `invoices
 | 16 | Hotels | Yes | `Hotel` | Modality |
 | 17 | Hospitals / clinics | Yes | `HospitalClinica` | Modality |
 | 18 | Games of chance | Yes | `JuegoAzar` | Modality |
-| **19** | **Hydrocarbons subject to IEHD** | Yes | **— no builder** | — |
+| 19 | Hydrocarbons subject to IEHD | Yes | `HidrocarburoAlcanzadaIehd` | Modality |
 | 20 | Mineral export | No | `ComercialExportacionMinera` | Modality |
 | 21 | Domestic mineral sales | Yes | `VentaMineral` | Modality |
 | 22 | Telecommunications | Yes | `Telecomunicaciones` | `Telecomunicaciones()` |
@@ -125,7 +125,7 @@ Builder names drop the `New`/`Builder` wrapper — `CompraVenta` means `invoices
 | 35 | Sales with bonuses | Yes | `CompraVentaBonificaciones` | `CompraVenta()` |
 | 36 | Prevalued without tax credit | No | `PrevaloradaSinDerechoCreditoFiscal` | Modality |
 | 37 | CNG retail | Yes | `ComercializacionGnv` | Modality |
-| **38** | **Hydrocarbons not subject to IEHD** | Yes | **— no builder** | — |
+| 38 | Hydrocarbons not subject to IEHD | Yes | `HidrocarburoNoAlcanzadaIehd` | Modality |
 | 39 | Natural gas and LPG retail | Yes | `ComercializacionGnGlp` | Modality |
 | 40 | Basic services, free trade zone | No | `ServicioBasicoZF` | `ServicioBasico()` |
 | 41 | Sales with non-creditable fees | Yes | `CompraVentaTasas` | `CompraVenta()` |
@@ -154,19 +154,30 @@ Four things worth reading off this table:
 
 **`ZF` means *zona franca*.** It is the free-trade-zone variant of a sector, with a different code and extra fields — and almost always without tax credit even where the base sector grants it (compare 13 with 40, 22 with 49, 17 with 50).
 
-### The three uncovered sectors
+### The four hydrocarbon and lubricant sectors
 
-Codes 19, 33 and 38 exist in SIAT's catalog but have no builder in the SDK:
+These are the easiest to mix up, because their names overlap and the difference is regulatory rather than structural:
+
+| Code | Builder | Applies to |
+| ---: | :--- | :--- |
+| 12 | `ComercializacionHidro` | Fuel retail — diesel, gasoline, automotive |
+| 19 | `HidrocarburoAlcanzadaIehd` | Activities **liable** for the IEHD |
+| 38 | `HidrocarburoNoAlcanzadaIehd` | Activities **exempt** from the IEHD |
+| 44 / 53 | `ImportacionComercializacionLubricantes` / `LubricantesIehd` | Lubricant import and retail, without and with IEHD |
+
+Sectors 19 and 38 share an identical layout except that 19 carries `montoIehd` in the header and `porcentajeIehd` per detail line. If you are exempt, 38 rejects those fields; if you are liable, 19 requires them.
+
+### The one uncovered sector
+
+Code 33 exists in SIAT's catalog but has no builder in the SDK:
 
 | Code | Description |
 | ---: | :--- |
-| 19 | Hydrocarbons subject to IEHD |
-| 33 | Zero rate VAT, Law 1613 |
-| 38 | Hydrocarbons not subject to IEHD |
+| 33 | Zero rate VAT, Law 1613 — capital goods and industrial plants |
 
-If your activity falls under one of these, there is no shortcut inside the SDK: you must build the document struct yourself and feed it in with `WithArchivo` / `WithHashArchivo` instead of `WithFactura`. See [packaging by hand](../how-to/send-invoices.md#packaging-by-hand).
+If your activity falls under it, there is no shortcut inside the SDK: you must build the document struct yourself and feed it in with `WithArchivo` / `WithHashArchivo` instead of `WithFactura`. See [packaging by hand](../how-to/send-invoices.md#packaging-by-hand).
 
-Do not confuse 19 with 53 or 44: all three touch hydrocarbons or lubricants, but only 53 (`LubricantesIehd`) and 44 (`ImportacionComercializacionLubricantes`) have builders.
+Do not substitute sector 8 (`TasaCero`) for 33. Both are zero-rate, but 8 covers books and international road freight under a different legal basis, and SIAT rejects the mismatch with code 932.
 
 ---
 

@@ -27,7 +27,7 @@ Si no coinciden, se rechaza con el código `932 — CODIGO DOCUMENTO SECTOR NO C
 
 ## Todos los builders de sector tienen la misma forma
 
-Los 49 builders de `pkg/models/invoices` (48 códigos, uno de ellos con dos diseños) siguen un solo patrón, así que aprender uno te enseña todos:
+Los 51 builders de `pkg/models/invoices` (50 códigos, uno de ellos con dos diseños) siguen un solo patrón, así que aprender uno te enseña todos:
 
 ```go
 cabecera := invoices.NewHotelCabeceraBuilder().
@@ -71,7 +71,7 @@ El SIAT expone doce endpoints SOAP. Cuál acepta tu factura no es una elección 
 | `s.BoletoAereo()` | BoletoAereo (30) |
 | `s.DocumentoAjuste()` | NotaCreditoDebito (24), NotaFiscalCreditoDebito (24), NotaConciliacion (29), NotaCreditoDebitoDescuento (47), NotaCreditoDebitoIce (48) |
 
-**Los otros 35 sectores se enrutan por modalidad**, no por actividad. Elegí la fachada que corresponde a cómo estás facturando:
+**Los otros 37 sectores se enrutan por modalidad**, no por actividad. Elegí la fachada que corresponde a cómo estás facturando:
 
 ```go
 s.Electronica().RecepcionFactura(ctx, req)     // ModalidadElectronica — firmada
@@ -86,7 +86,7 @@ Las dos exponen la misma interfaz de nueve métodos, así que cambiar de modalid
 
 ## Catálogo completo de sectores
 
-El catálogo normativo del SIAT define **51 códigos de documento sector**. El SDK trae builders para **48 de ellos**; los tres que faltan están marcados abajo.
+El catálogo normativo del SIAT define **51 códigos de documento sector**. El SDK trae builders para **50 de ellos**; el único que falta está marcado abajo.
 
 Los nombres de builder omiten el envoltorio `New`/`Builder` — `CompraVenta` significa `invoices.NewCompraVentaBuilder()`. En la columna **Fachada**, *Modalidad* significa `Electronica()` o `Computarizada()` según cómo estés facturando.
 
@@ -110,7 +110,7 @@ Los nombres de builder omiten el envoltorio `New`/`Builder` — `CompraVenta` si
 | 16 | Hoteles | Con | `Hotel` | Modalidad |
 | 17 | Hospitales / Clínicas | Con | `HospitalClinica` | Modalidad |
 | 18 | Juegos de Azar | Con | `JuegoAzar` | Modalidad |
-| **19** | **Hidrocarburos Alcanzada IEHD** | Con | **— sin builder** | — |
+| 19 | Hidrocarburos Alcanzada IEHD | Con | `HidrocarburoAlcanzadaIehd` | Modalidad |
 | 20 | Comercial de Exportación de Minerales | Sin | `ComercialExportacionMinera` | Modalidad |
 | 21 | Venta de Minerales | Con | `VentaMineral` | Modalidad |
 | 22 | Telecomunicaciones | Con | `Telecomunicaciones` | `Telecomunicaciones()` |
@@ -125,7 +125,7 @@ Los nombres de builder omiten el envoltorio `New`/`Builder` — `CompraVenta` si
 | 35 | Compra Venta Bonificaciones | Con | `CompraVentaBonificaciones` | `CompraVenta()` |
 | 36 | Prevalorada Sin Derecho a Crédito Fiscal | Sin | `PrevaloradaSinDerechoCreditoFiscal` | Modalidad |
 | 37 | Comercialización de GNV | Con | `ComercializacionGnv` | Modalidad |
-| **38** | **Hidrocarburos No Alcanzada IEHD** | Con | **— sin builder** | — |
+| 38 | Hidrocarburos No Alcanzada IEHD | Con | `HidrocarburoNoAlcanzadaIehd` | Modalidad |
 | 39 | Comercialización de GN y GLP | Con | `ComercializacionGnGlp` | Modalidad |
 | 40 | Servicios Básicos Zona Franca | Sin | `ServicioBasicoZF` | `ServicioBasico()` |
 | 41 | Compra Venta Tasas | Con | `CompraVentaTasas` | `CompraVenta()` |
@@ -154,19 +154,30 @@ Cuatro cosas que vale la pena leer de esta tabla:
 
 **`ZF` significa zona franca.** Es la variante del sector para zona franca, con otro código y campos adicionales — y casi siempre sin derecho a crédito fiscal aunque el sector base sí lo tenga (compará 13 con 40, 22 con 49, 17 con 50).
 
-### Los tres sectores sin cobertura
+### Los cuatro sectores de hidrocarburos y lubricantes
 
-Los códigos 19, 33 y 38 están en el catálogo del SIAT pero no tienen builder en el SDK:
+Son los más fáciles de confundir, porque los nombres se superponen y la diferencia es normativa y no estructural:
+
+| Cód. | Builder | Se aplica a |
+| ---: | :--- | :--- |
+| 12 | `ComercializacionHidro` | Venta de combustible — diésel, gasolina, automotores |
+| 19 | `HidrocarburoAlcanzadaIehd` | Actividades **alcanzadas** por el IEHD |
+| 38 | `HidrocarburoNoAlcanzadaIehd` | Actividades **exentas** del IEHD |
+| 44 / 53 | `ImportacionComercializacionLubricantes` / `LubricantesIehd` | Importación y venta de lubricantes, sin y con IEHD |
+
+Los sectores 19 y 38 comparten un diseño idéntico salvo que el 19 lleva `montoIehd` en la cabecera y `porcentajeIehd` por línea de detalle. Si estás exento, el 38 rechaza esos campos; si estás alcanzado, el 19 los exige.
+
+### El único sector sin cobertura
+
+El código 33 está en el catálogo del SIAT pero no tiene builder en el SDK:
 
 | Cód. | Descripción |
 | ---: | :--- |
-| 19 | Factura de Hidrocarburos Alcanzada IEHD |
-| 33 | Factura Tasa Cero IVA Ley N° 1613 |
-| 38 | Factura Hidrocarburos No Alcanzada IEHD |
+| 33 | Factura Tasa Cero IVA Ley N° 1613 — bienes de capital y plantas industriales |
 
-Si tu actividad cae en alguno, no hay atajo dentro del SDK: tenés que armar el struct del documento vos mismo y cargarlo con `WithArchivo` / `WithHashArchivo` en lugar de `WithFactura`. Mirá [armar el archivo a mano](../how-to/envio-facturas.md#empaquetar-a-mano).
+Si tu actividad cae ahí, no hay atajo dentro del SDK: tenés que armar el struct del documento vos mismo y cargarlo con `WithArchivo` / `WithHashArchivo` en lugar de `WithFactura`. Mirá [armar el archivo a mano](../how-to/envio-facturas.md#empaquetar-a-mano).
 
-No confundas el 19 con el 53 ni el 44: los tres tocan hidrocarburos o lubricantes, pero solo el 53 (`LubricantesIehd`) y el 44 (`ImportacionComercializacionLubricantes`) tienen builder.
+No reemplaces el 33 por el sector 8 (`TasaCero`). Los dos son tasa cero, pero el 8 cubre libros y transporte internacional de carga con otra base legal, y el SIAT rechaza la confusión con el código 932.
 
 ---
 
