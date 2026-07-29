@@ -63,7 +63,7 @@ El SIAT quiere esos campos de identidad dentro de casi todas las solicitudes. En
 
 Esa cláusula "sigue en cero" es lo importante: la inyección es un default, no un override. Poner `WithNit` de forma explícita en un builder gana. Los casos multi-inquilino aprovechan la misma costura con `WithDynamicConfig`, que fusiona una configuración por llamada tomada del contexto antes de que corra la inyección.
 
-En v1 la firma era `(ctx, cfg, req)` — la configuración viajaba con cada llamada. Moverla al cliente sacó un parámetro de unos ochenta métodos y convirtió la identidad en una única fuente de verdad.
+En v1 la firma era `(ctx, cfg, req)` — la configuración viajaba con cada llamada. Moverla al cliente sacó un parámetro de unos sesenta métodos y convirtió la identidad en una única fuente de verdad.
 
 ### 2. Las solicitudes son opacas
 
@@ -143,7 +143,7 @@ func performSoapRequest[TReq any, TResp any](
 ) (*soap.EnvelopeResponse[TResp], error)
 ```
 
-Fusiona la configuración dinámica del contexto si la hay, desenvuelve la solicitud opaca, inyecta credenciales, arma el sobre, pone las cabeceras, envía y decodifica la respuesta. Cada uno de los aproximadamente ochenta métodos de servicio es una llamada delgada a esta función con dos parámetros de tipo.
+Fusiona la configuración dinámica del contexto si la hay, desenvuelve la solicitud opaca, inyecta credenciales, arma el sobre, pone las cabeceras, envía y decodifica la respuesta. Cada uno de los aproximadamente sesenta métodos de servicio es una llamada delgada a esta función con dos parámetros de tipo.
 
 La recompensa está del lado de la respuesta. `soap.EnvelopeResponse[T]` significa que el compilador conoce el tipo exacto del payload:
 
