@@ -88,61 +88,61 @@ Las dos exponen la misma interfaz de nueve métodos, así que cambiar de modalid
 
 El catálogo normativo del SIAT define **51 códigos de documento sector**. El SDK trae builders para **50 de ellos**; el único que falta está marcado abajo.
 
-Los nombres de builder omiten el envoltorio `New`/`Builder` — `CompraVenta` significa `invoices.NewCompraVentaBuilder()`. La columna **Modalidades** es lo que acepta `WithModalidad` en el builder raíz para ese sector; la columna **Fachada** es qué método de servicio usás para el *envío* — en los sectores marcados "Electronica o Computarizada", elegís la fachada según la modalidad que construiste.
+Los nombres de builder omiten el envoltorio `New`/`Builder` — `CompraVenta` significa `invoices.NewCompraVentaBuilder()`. La columna **Modalidades** es lo que acepta `WithModalidad` en el builder raíz para ese sector; la columna **Fachada** es qué método de servicio usás para el *envío* — en los sectores marcados "`Electronica()` o `Computarizada()`", elegís la fachada según la modalidad que construiste.
 
 | Cód. | Descripción | Crédito fiscal | Modalidades | Builder | Fachada |
 | ---: | :--- | :--- | :--- | :--- | :--- |
 | 1 | Compra y Venta | Con | Electrónica y Computarizada | `CompraVenta` | `CompraVenta()` |
-| 2 | Alquiler de Bienes Inmuebles | Con | Electrónica y Computarizada | `AlquilerBienInmueble` | Electronica o Computarizada |
-| 3 | Comercial de Exportación | Sin | Electrónica y Computarizada | `ComercialExportacion` | Electronica o Computarizada |
-| 4 | Comercial de Exportación en Libre Consignación | Sin | Electrónica y Computarizada | `LibreConsignacion` | Electronica o Computarizada |
-| 5 | Venta en Zona Franca | Sin | Electrónica y Computarizada | `ZonaFranca` | Electronica o Computarizada |
-| 6 | Servicio Turístico y Hospedaje | Sin | Electrónica y Computarizada | `TurismoHospedaje` | Electronica o Computarizada |
-| 7 | Seguridad Alimentaria y Abastecimiento | Sin | Electrónica y Computarizada | `SeguridadAlimentaria` | Electronica o Computarizada |
-| 8 | Tasa Cero — libros y transporte internacional de carga | Sin | Electrónica y Computarizada | `TasaCero` | Electronica o Computarizada |
-| 9 | Compra y Venta de Moneda Extranjera | Sin | Electrónica y Computarizada | `MonedaExtranjera` | Electronica o Computarizada |
-| 10 | Dutty Free | Sin | Electrónica y Computarizada | `DuttyFree` | Electronica o Computarizada |
-| 11 | Sectores Educativos | Con | Electrónica y Computarizada | `SectorEducativo` | Electronica o Computarizada |
-| 12 | Comercialización de Hidrocarburos | Con | Electrónica y Computarizada | `ComercializacionHidro` | Electronica o Computarizada |
+| 2 | Alquiler de Bienes Inmuebles | Con | Electrónica y Computarizada | `AlquilerBienInmueble` | `Electronica()` o `Computarizada()` |
+| 3 | Comercial de Exportación | Sin | Electrónica y Computarizada | `ComercialExportacion` | `Electronica()` o `Computarizada()` |
+| 4 | Comercial de Exportación en Libre Consignación | Sin | Electrónica y Computarizada | `LibreConsignacion` | `Electronica()` o `Computarizada()` |
+| 5 | Venta en Zona Franca | Sin | Electrónica y Computarizada | `ZonaFranca` | `Electronica()` o `Computarizada()` |
+| 6 | Servicio Turístico y Hospedaje | Sin | Electrónica y Computarizada | `TurismoHospedaje` | `Electronica()` o `Computarizada()` |
+| 7 | Seguridad Alimentaria y Abastecimiento | Sin | Electrónica y Computarizada | `SeguridadAlimentaria` | `Electronica()` o `Computarizada()` |
+| 8 | Tasa Cero — libros y transporte internacional de carga | Sin | Electrónica y Computarizada | `TasaCero` | `Electronica()` o `Computarizada()` |
+| 9 | Compra y Venta de Moneda Extranjera | Sin | Electrónica y Computarizada | `MonedaExtranjera` | `Electronica()` o `Computarizada()` |
+| 10 | Dutty Free | Sin | Electrónica y Computarizada | `DuttyFree` | `Electronica()` o `Computarizada()` |
+| 11 | Sectores Educativos | Con | Electrónica y Computarizada | `SectorEducativo` | `Electronica()` o `Computarizada()` |
+| 12 | Comercialización de Hidrocarburos | Con | Electrónica y Computarizada | `ComercializacionHidro` | `Electronica()` o `Computarizada()` |
 | 13 | Servicios Básicos | Con | Electrónica y Computarizada | `ServicioBasico` | `ServicioBasico()` |
-| 14 | Productos Alcanzados por el ICE | Con | Electrónica y Computarizada | `AlcanzadaIce` | Electronica o Computarizada |
+| 14 | Productos Alcanzados por el ICE | Con | Electrónica y Computarizada | `AlcanzadaIce` | `Electronica()` o `Computarizada()` |
 | 15 | Entidades Financieras | Con | Electrónica y Computarizada | `EntidadFinanciera` | `EntidadFinanciera()` |
-| 16 | Hoteles | Con | Electrónica y Computarizada | `Hotel` | Electronica o Computarizada |
-| 17 | Hospitales / Clínicas | Con | Electrónica y Computarizada | `HospitalClinica` | Electronica o Computarizada |
-| 18 | Juegos de Azar | Con | Electrónica y Computarizada | `JuegoAzar` | Electronica o Computarizada |
-| 19 | Hidrocarburos Alcanzada IEHD | Con | Electrónica y Computarizada | `HidrocarburoAlcanzadaIehd` | Electronica o Computarizada |
-| 20 | Comercial de Exportación de Minerales | Sin | Electrónica y Computarizada | `ComercialExportacionMinera` | Electronica o Computarizada |
-| 21 | Venta de Minerales | Con | Electrónica y Computarizada | `VentaMineral` | Electronica o Computarizada |
+| 16 | Hoteles | Con | Electrónica y Computarizada | `Hotel` | `Electronica()` o `Computarizada()` |
+| 17 | Hospitales / Clínicas | Con | Electrónica y Computarizada | `HospitalClinica` | `Electronica()` o `Computarizada()` |
+| 18 | Juegos de Azar | Con | Electrónica y Computarizada | `JuegoAzar` | `Electronica()` o `Computarizada()` |
+| 19 | Hidrocarburos Alcanzada IEHD | Con | Electrónica y Computarizada | `HidrocarburoAlcanzadaIehd` | `Electronica()` o `Computarizada()` |
+| 20 | Comercial de Exportación de Minerales | Sin | Electrónica y Computarizada | `ComercialExportacionMinera` | `Electronica()` o `Computarizada()` |
+| 21 | Venta de Minerales | Con | Electrónica y Computarizada | `VentaMineral` | `Electronica()` o `Computarizada()` |
 | 22 | Telecomunicaciones | Con | Electrónica y Computarizada | `Telecomunicaciones` | `Telecomunicaciones()` |
-| 23 | Prevalorada | Con | Electrónica y Computarizada | `Prevalorada` | Electronica o Computarizada |
+| 23 | Prevalorada | Con | Electrónica y Computarizada | `Prevalorada` | `Electronica()` o `Computarizada()` |
 | 24 | Nota de Crédito-Débito | Ajuste | Electrónica y Computarizada | `NotaCreditoDebito` · `NotaFiscalCreditoDebito` | `DocumentoAjuste()` |
-| 28 | Comercial de Exportación de Servicios | Sin | Electrónica y Computarizada | `ComercialExportacionServicio` | Electronica o Computarizada |
+| 28 | Comercial de Exportación de Servicios | Sin | Electrónica y Computarizada | `ComercialExportacionServicio` | `Electronica()` o `Computarizada()` |
 | 29 | Nota de Conciliación | Ajuste | Electrónica y Computarizada | `NotaConciliacion` | `DocumentoAjuste()` |
 | 30 | Boleto Aéreo | Equivalente | Electrónica y Computarizada | `BoletoAereo` | `BoletoAereo()` |
-| 31 | Suministro de Energía | Con | Electrónica y Computarizada | `SuministroEnergia` | Electronica o Computarizada |
+| 31 | Suministro de Energía | Con | Electrónica y Computarizada | `SuministroEnergia` | `Electronica()` o `Computarizada()` |
 | **33** | **Tasa Cero IVA Ley N° 1613** | Sin | — | **— sin builder** | — |
-| 34 | Seguros | Con | Electrónica y Computarizada | `Seguros` | Electronica o Computarizada |
+| 34 | Seguros | Con | Electrónica y Computarizada | `Seguros` | `Electronica()` o `Computarizada()` |
 | 35 | Compra Venta Bonificaciones | Con | Electrónica y Computarizada | `CompraVentaBonificaciones` | `CompraVenta()` |
-| 36 | Prevalorada Sin Derecho a Crédito Fiscal | Sin | Electrónica y Computarizada | `PrevaloradaSinDerechoCreditoFiscal` | Electronica o Computarizada |
-| 37 | Comercialización de GNV | Con | Electrónica y Computarizada | `ComercializacionGnv` | Electronica o Computarizada |
-| 38 | Hidrocarburos No Alcanzada IEHD | Con | Electrónica y Computarizada | `HidrocarburoNoAlcanzadaIehd` | Electronica o Computarizada |
-| 39 | Comercialización de GN y GLP | Con | Electrónica y Computarizada | `ComercializacionGnGlp` | Electronica o Computarizada |
+| 36 | Prevalorada Sin Derecho a Crédito Fiscal | Sin | Electrónica y Computarizada | `PrevaloradaSinDerechoCreditoFiscal` | `Electronica()` o `Computarizada()` |
+| 37 | Comercialización de GNV | Con | Electrónica y Computarizada | `ComercializacionGnv` | `Electronica()` o `Computarizada()` |
+| 38 | Hidrocarburos No Alcanzada IEHD | Con | Electrónica y Computarizada | `HidrocarburoNoAlcanzadaIehd` | `Electronica()` o `Computarizada()` |
+| 39 | Comercialización de GN y GLP | Con | Electrónica y Computarizada | `ComercializacionGnGlp` | `Electronica()` o `Computarizada()` |
 | 40 | Servicios Básicos Zona Franca | Sin | Electrónica y Computarizada | `ServicioBasicoZF` | `ServicioBasico()` |
 | 41 | Compra Venta Tasas | Con | Electrónica y Computarizada | `CompraVentaTasas` | `CompraVenta()` |
-| 42 | Alquiler Zona Franca | Sin | Electrónica y Computarizada | `AlquilerZF` | Electronica o Computarizada |
-| 43 | Comercial de Exportación Hidrocarburos | Sin | Electrónica y Computarizada | `ComercialExportacionHidro` | Electronica o Computarizada |
-| 44 | Importación y Comercialización de Lubricantes | Con | Electrónica y Computarizada | `ImportacionComercializacionLubricantes` | Electronica o Computarizada |
-| 45 | Comercial de Exportación Precio Venta | Sin | Electrónica y Computarizada | `ComercialExportacionPVenta` | Electronica o Computarizada |
-| 46 | Sector Educativo Zona Franca | Sin | Electrónica y Computarizada | `SectorEducativoZF` | Electronica o Computarizada |
+| 42 | Alquiler Zona Franca | Sin | Electrónica y Computarizada | `AlquilerZF` | `Electronica()` o `Computarizada()` |
+| 43 | Comercial de Exportación Hidrocarburos | Sin | Electrónica y Computarizada | `ComercialExportacionHidro` | `Electronica()` o `Computarizada()` |
+| 44 | Importación y Comercialización de Lubricantes | Con | Electrónica y Computarizada | `ImportacionComercializacionLubricantes` | `Electronica()` o `Computarizada()` |
+| 45 | Comercial de Exportación Precio Venta | Sin | Electrónica y Computarizada | `ComercialExportacionPVenta` | `Electronica()` o `Computarizada()` |
+| 46 | Sector Educativo Zona Franca | Sin | Electrónica y Computarizada | `SectorEducativoZF` | `Electronica()` o `Computarizada()` |
 | 47 | Nota Crédito Débito Descuentos | Ajuste | Electrónica y Computarizada | `NotaCreditoDebitoDescuento` | `DocumentoAjuste()` |
 | 48 | Nota Crédito Débito ICE | Ajuste | Electrónica y Computarizada | `NotaCreditoDebitoIce` | `DocumentoAjuste()` |
 | 49 | Telecomunicaciones Zona Franca | Sin | Electrónica y Computarizada | `TelecomunicacionesZF` | `Telecomunicaciones()` |
-| 50 | Hospitales / Clínicas Zona Franca | Sin | Electrónica y Computarizada | `HospitalClinicaZF` | Electronica o Computarizada |
-| 51 | Engarrafadoras | Con | Electrónica y Computarizada | `Engarrafadoras` | Electronica o Computarizada |
+| 50 | Hospitales / Clínicas Zona Franca | Sin | Electrónica y Computarizada | `HospitalClinicaZF` | `Electronica()` o `Computarizada()` |
+| 51 | Engarrafadoras | Con | Electrónica y Computarizada | `Engarrafadoras` | `Electronica()` o `Computarizada()` |
 | 52 | Venta de Minerales al Banco Central | Sin | **Solo Electrónica** | `VentaMineralBCB` | `Electronica()` únicamente |
-| 53 | Importación y Comercialización de Lubricantes IEHD | Con | Electrónica y Computarizada | `LubricantesIehd` | Electronica o Computarizada |
-| 54 | Compra-Venta de Insumos para Biodiésel / Diésel Ecológico | Sin | Electrónica y Computarizada | `Biodiesel` | Electronica o Computarizada |
-| 55 | Comercialización de Combustible | Con | Electrónica y Computarizada | `VentaCombustibleSinSubvencion` | Electronica o Computarizada |
+| 53 | Importación y Comercialización de Lubricantes IEHD | Con | Electrónica y Computarizada | `LubricantesIehd` | `Electronica()` o `Computarizada()` |
+| 54 | Compra-Venta de Insumos para Biodiésel / Diésel Ecológico | Sin | Electrónica y Computarizada | `Biodiesel` | `Electronica()` o `Computarizada()` |
+| 55 | Comercialización de Combustible | Con | Electrónica y Computarizada | `VentaCombustibleSinSubvencion` | `Electronica()` o `Computarizada()` |
 
 Cinco cosas que vale la pena leer de esta tabla:
 
