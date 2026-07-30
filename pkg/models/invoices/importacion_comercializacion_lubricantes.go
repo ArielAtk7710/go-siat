@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -255,7 +256,7 @@ func (b *importacionComercializacionLubricantesCabeceraBuilder) WithNumeroTarjet
 }
 
 func (b *importacionComercializacionLubricantesCabeceraBuilder) WithMontoTotal(v float64) *importacionComercializacionLubricantesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -265,14 +266,14 @@ func (b *importacionComercializacionLubricantesCabeceraBuilder) WithMontoDeducci
 		b.cabecera.MontoDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: nil}
 	} else {
 		val := *v
-		val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+		val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 		b.cabecera.MontoDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *importacionComercializacionLubricantesCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *importacionComercializacionLubricantesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -283,13 +284,13 @@ func (b *importacionComercializacionLubricantesCabeceraBuilder) WithCodigoMoneda
 }
 
 func (b *importacionComercializacionLubricantesCabeceraBuilder) WithTipoCambio(v float64) *importacionComercializacionLubricantesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *importacionComercializacionLubricantesCabeceraBuilder) WithMontoTotalMoneda(v float64) *importacionComercializacionLubricantesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -299,7 +300,7 @@ func (b *importacionComercializacionLubricantesCabeceraBuilder) WithDescuentoAdi
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: nil}
 	} else {
 		val := *v
-		val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+		val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
@@ -370,7 +371,7 @@ func (b *importacionComercializacionLubricantesDetalleBuilder) WithDescripcion(v
 }
 
 func (b *importacionComercializacionLubricantesDetalleBuilder) WithCantidad(v float64) *importacionComercializacionLubricantesDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -381,7 +382,7 @@ func (b *importacionComercializacionLubricantesDetalleBuilder) WithUnidadMedida(
 }
 
 func (b *importacionComercializacionLubricantesDetalleBuilder) WithPrecioUnitario(v float64) *importacionComercializacionLubricantesDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -391,20 +392,20 @@ func (b *importacionComercializacionLubricantesDetalleBuilder) WithMontoDescuent
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
 		val := *v
-		val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+		val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *importacionComercializacionLubricantesDetalleBuilder) WithSubTotal(v float64) *importacionComercializacionLubricantesDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }
 
 func (b *importacionComercializacionLubricantesDetalleBuilder) WithCantidadLitros(v float64) *importacionComercializacionLubricantesDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.CantidadLitros = v
 	return b
 }
@@ -414,7 +415,7 @@ func (b *importacionComercializacionLubricantesDetalleBuilder) WithPorcentajeDed
 		b.detalle.PorcentajeDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: nil}
 	} else {
 		val := *v
-		val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+		val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 		b.detalle.PorcentajeDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: &val}
 	}
 	return b

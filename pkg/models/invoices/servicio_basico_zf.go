@@ -8,7 +8,7 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/documents"
 	"github.com/ron86i/go-siat/v2/pkg/models"
-	"github.com/ron86i/go-siat/v2/pkg/utils"
+	"github.com/shopspring/decimal"
 )
 
 // ServicioBasicoZF representa la estructura completa de una factura de servicio básico ZF lista para ser procesada.
@@ -255,7 +255,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithNumeroTarjeta(v *int64) *servicioB
 }
 
 func (b *servicioBasicoZFCabeceraBuilder) WithMontoTotal(v float64) *servicioBasicoZFCabeceraBuilder {
-	b.cabecera.MontoTotal = utils.Round(v, 2)
+	b.cabecera.MontoTotal = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -263,7 +263,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithConsumoPeriodo(v *float64) *servic
 	if v == nil {
 		b.cabecera.ConsumoPeriodo = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.ConsumoPeriodo = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -283,7 +283,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithMontoDescuentoLey1886(v *float64) 
 	if v == nil {
 		b.cabecera.MontoDescuentoLey1886 = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.MontoDescuentoLey1886 = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -293,7 +293,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithMontoDescuentoTarifaDignidad(v *fl
 	if v == nil {
 		b.cabecera.MontoDescuentoTarifaDignidad = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.MontoDescuentoTarifaDignidad = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -303,7 +303,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithTasaAseo(v *float64) *servicioBasi
 	if v == nil {
 		b.cabecera.TasaAseo = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.TasaAseo = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -313,7 +313,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithTasaAlumbrado(v *float64) *servici
 	if v == nil {
 		b.cabecera.TasaAlumbrado = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.TasaAlumbrado = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -323,7 +323,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithAjusteNoSujetoIva(v *float64) *ser
 	if v == nil {
 		b.cabecera.AjusteNoSujetoIva = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.AjusteNoSujetoIva = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -343,7 +343,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithAjusteSujetoIva(v *float64) *servi
 	if v == nil {
 		b.cabecera.AjusteSujetoIva = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.AjusteSujetoIva = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -363,7 +363,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithOtrosPagosNoSujetoIva(v *float64) 
 	if v == nil {
 		b.cabecera.OtrosPagosNoSujetoIva = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.OtrosPagosNoSujetoIva = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -383,7 +383,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithOtrasTasas(v *float64) *servicioBa
 	if v == nil {
 		b.cabecera.OtrasTasas = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.OtrasTasas = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -395,12 +395,12 @@ func (b *servicioBasicoZFCabeceraBuilder) WithCodigoMoneda(v int) *servicioBasic
 }
 
 func (b *servicioBasicoZFCabeceraBuilder) WithTipoCambio(v float64) *servicioBasicoZFCabeceraBuilder {
-	b.cabecera.TipoCambio = utils.Round(v, 2)
+	b.cabecera.TipoCambio = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
 func (b *servicioBasicoZFCabeceraBuilder) WithMontoTotalMoneda(v float64) *servicioBasicoZFCabeceraBuilder {
-	b.cabecera.MontoTotalMoneda = utils.Round(v, 2)
+	b.cabecera.MontoTotalMoneda = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -408,7 +408,7 @@ func (b *servicioBasicoZFCabeceraBuilder) WithDescuentoAdicional(v *float64) *se
 	if v == nil {
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -480,7 +480,7 @@ func (b *servicioBasicoZFDetalleBuilder) WithDescripcion(v string) *servicioBasi
 }
 
 func (b *servicioBasicoZFDetalleBuilder) WithCantidad(v float64) *servicioBasicoZFDetalleBuilder {
-	b.detalle.Cantidad = utils.Round(v, 2)
+	b.detalle.Cantidad = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -490,7 +490,7 @@ func (b *servicioBasicoZFDetalleBuilder) WithUnidadMedida(v int) *servicioBasico
 }
 
 func (b *servicioBasicoZFDetalleBuilder) WithPrecioUnitario(v float64) *servicioBasicoZFDetalleBuilder {
-	b.detalle.PrecioUnitario = utils.Round(v, 2)
+	b.detalle.PrecioUnitario = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -498,14 +498,14 @@ func (b *servicioBasicoZFDetalleBuilder) WithMontoDescuento(v *float64) *servici
 	if v == nil {
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
 }
 
 func (b *servicioBasicoZFDetalleBuilder) WithSubTotal(v float64) *servicioBasicoZFDetalleBuilder {
-	b.detalle.SubTotal = utils.Round(v, 2)
+	b.detalle.SubTotal = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 

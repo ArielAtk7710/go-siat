@@ -3,8 +3,9 @@ package invoices
 import (
 	"encoding/json"
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -259,13 +260,13 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithCodigoMoneda(v int) *com
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithTipoCambio(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithTipoCambioANB(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.cabecera.TipoCambioANB = v
 	return b
 }
@@ -276,7 +277,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithNumeroLote(v string) *co
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithKilosNetosHumedos(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.KilosNetosHumedos = v
 	return b
 }
@@ -287,7 +288,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithHumedadPorcentaje(v *flo
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.HumedadPorcentaje = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -298,7 +299,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithHumedadValor(v *float64)
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.HumedadValor = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -309,7 +310,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithMermaPorcentaje(v *float
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MermaPorcentaje = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -320,13 +321,13 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithMermaValor(v *float64) *
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MermaValor = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithKilosNetosSecos(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.KilosNetosSecos = v
 	return b
 }
@@ -347,19 +348,19 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithNumeroTarjeta(v *int64) 
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithMontoTotal(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithMontoTotalMoneda(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithGastosRealizacion(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.GastosRealizacion = v
 	return b
 }
@@ -391,7 +392,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithDescuentoAdicional(v *fl
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -427,7 +428,7 @@ func (b *comercialExportacionMineraCabeceraBuilder) WithUsuario(v string) *comer
 }
 
 func (b *comercialExportacionMineraCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *comercialExportacionMineraCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -477,13 +478,13 @@ func (b *comercialExportacionMineraDetalleBuilder) WithDescripcionLeyes(v string
 }
 
 func (b *comercialExportacionMineraDetalleBuilder) WithCantidadExtraccion(v float64) *comercialExportacionMineraDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.CantidadExtraccion = v
 	return b
 }
 
 func (b *comercialExportacionMineraDetalleBuilder) WithCantidad(v float64) *comercialExportacionMineraDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -499,7 +500,7 @@ func (b *comercialExportacionMineraDetalleBuilder) WithUnidadMedida(v int) *come
 }
 
 func (b *comercialExportacionMineraDetalleBuilder) WithPrecioUnitario(v float64) *comercialExportacionMineraDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -510,13 +511,13 @@ func (b *comercialExportacionMineraDetalleBuilder) WithMontoDescuento(v *float64
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 5, 64), 64)
+	value = decimal.NewFromFloat(value).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *comercialExportacionMineraDetalleBuilder) WithSubTotal(v float64) *comercialExportacionMineraDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

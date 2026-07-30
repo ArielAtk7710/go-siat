@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -208,25 +209,25 @@ func (b *juegoAzarCabeceraBuilder) WithNumeroTarjeta(v *int64) *juegoAzarCabecer
 }
 
 func (b *juegoAzarCabeceraBuilder) WithMontoTotal(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *juegoAzarCabeceraBuilder) WithMontoTotalIj(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalIj = v
 	return b
 }
 
 func (b *juegoAzarCabeceraBuilder) WithMontoTotalSujetoIpj(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIpj = v
 	return b
 }
 
 func (b *juegoAzarCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -237,13 +238,13 @@ func (b *juegoAzarCabeceraBuilder) WithCodigoMoneda(v int) *juegoAzarCabeceraBui
 }
 
 func (b *juegoAzarCabeceraBuilder) WithTipoCambio(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *juegoAzarCabeceraBuilder) WithMontoTotalMoneda(v float64) *juegoAzarCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -254,7 +255,7 @@ func (b *juegoAzarCabeceraBuilder) WithDescuentoAdicional(v *float64) *juegoAzar
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -323,7 +324,7 @@ func (b *juegoAzarDetalleBuilder) WithDescripcion(v string) *juegoAzarDetalleBui
 }
 
 func (b *juegoAzarDetalleBuilder) WithCantidad(v float64) *juegoAzarDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -334,7 +335,7 @@ func (b *juegoAzarDetalleBuilder) WithUnidadMedida(v int) *juegoAzarDetalleBuild
 }
 
 func (b *juegoAzarDetalleBuilder) WithPrecioUnitario(v float64) *juegoAzarDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -345,13 +346,13 @@ func (b *juegoAzarDetalleBuilder) WithMontoDescuento(v *float64) *juegoAzarDetal
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *juegoAzarDetalleBuilder) WithSubTotal(v float64) *juegoAzarDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

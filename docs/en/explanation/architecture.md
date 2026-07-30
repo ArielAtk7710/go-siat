@@ -63,7 +63,7 @@ SIAT wants those identity fields inside almost every request body. Rather than m
 
 That "still zero" clause is the important part: injection is a default, not an override. Setting `WithNit` explicitly on a builder wins. Multi-tenant callers exploit the same seam through `WithDynamicConfig`, which merges a per-call config off the context before injection runs.
 
-In v1 the signature was `(ctx, cfg, req)` — config travelled with every call. Moving it into the client removed a parameter from roughly eighty methods and made the identity a single source of truth.
+In v1 the signature was `(ctx, cfg, req)` — config travelled with every call. Moving it into the client removed a parameter from roughly sixty methods and made the identity a single source of truth.
 
 ### 2. Requests are opaque
 
@@ -143,7 +143,7 @@ func performSoapRequest[TReq any, TResp any](
 ) (*soap.EnvelopeResponse[TResp], error)
 ```
 
-It merges any dynamic config from the context, unwraps the opaque request, injects credentials, builds the envelope, sets headers, sends, and decodes the response. Every one of the roughly eighty service methods is a thin call into it with two type parameters.
+It merges any dynamic config from the context, unwraps the opaque request, injects credentials, builds the envelope, sets headers, sends, and decodes the response. Every one of the roughly sixty service methods is a thin call into it with two type parameters.
 
 The payoff is on the response side. `soap.EnvelopeResponse[T]` means the compiler knows the exact payload type:
 

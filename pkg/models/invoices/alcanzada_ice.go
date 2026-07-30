@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -209,7 +210,7 @@ func (b *alcanzadaIceCabeceraBuilder) WithNumeroTarjeta(v *int64) *alcanzadaIceC
 }
 
 func (b *alcanzadaIceCabeceraBuilder) WithMontoTotal(v float64) *alcanzadaIceCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -220,7 +221,7 @@ func (b *alcanzadaIceCabeceraBuilder) WithMontoIceEspecifico(v *float64) *alcanz
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+	val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 	b.cabecera.MontoIceEspecifico = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -231,13 +232,13 @@ func (b *alcanzadaIceCabeceraBuilder) WithMontoIcePorcentual(v *float64) *alcanz
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+	val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 	b.cabecera.MontoIcePorcentual = datatype.Nilable[float64]{Value: &val}
 	return b
 }
 
 func (b *alcanzadaIceCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *alcanzadaIceCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -248,13 +249,13 @@ func (b *alcanzadaIceCabeceraBuilder) WithCodigoMoneda(v int) *alcanzadaIceCabec
 }
 
 func (b *alcanzadaIceCabeceraBuilder) WithTipoCambio(v float64) *alcanzadaIceCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *alcanzadaIceCabeceraBuilder) WithMontoTotalMoneda(v float64) *alcanzadaIceCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -265,7 +266,7 @@ func (b *alcanzadaIceCabeceraBuilder) WithDescuentoAdicional(v *float64) *alcanz
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+	val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -335,7 +336,7 @@ func (b *alcanzadaIceDetalleBuilder) WithDescripcion(v string) *alcanzadaIceDeta
 }
 
 func (b *alcanzadaIceDetalleBuilder) WithCantidad(v float64) *alcanzadaIceDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -346,7 +347,7 @@ func (b *alcanzadaIceDetalleBuilder) WithUnidadMedida(v int) *alcanzadaIceDetall
 }
 
 func (b *alcanzadaIceDetalleBuilder) WithPrecioUnitario(v float64) *alcanzadaIceDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -357,13 +358,13 @@ func (b *alcanzadaIceDetalleBuilder) WithMontoDescuento(v *float64) *alcanzadaIc
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	return b
 }
 
 func (b *alcanzadaIceDetalleBuilder) WithSubTotal(v float64) *alcanzadaIceDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }
@@ -379,7 +380,7 @@ func (b *alcanzadaIceDetalleBuilder) WithAlicuotaIva(v *float64) *alcanzadaIceDe
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.AlicuotaIva = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -390,7 +391,7 @@ func (b *alcanzadaIceDetalleBuilder) WithPrecioNetoVentaIce(v *float64) *alcanza
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.PrecioNetoVentaIce = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -401,7 +402,7 @@ func (b *alcanzadaIceDetalleBuilder) WithAlicuotaEspecifica(v *float64) *alcanza
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.AlicuotaEspecifica = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -412,7 +413,7 @@ func (b *alcanzadaIceDetalleBuilder) WithAlicuotaPorcentual(v *float64) *alcanza
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.AlicuotaPorcentual = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -423,7 +424,7 @@ func (b *alcanzadaIceDetalleBuilder) WithMontoIceEspecifico(v *float64) *alcanza
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.MontoIceEspecifico = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -434,7 +435,7 @@ func (b *alcanzadaIceDetalleBuilder) WithMontoIcePorcentual(v *float64) *alcanza
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.MontoIcePorcentual = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -445,7 +446,7 @@ func (b *alcanzadaIceDetalleBuilder) WithCantidadIce(v *float64) *alcanzadaIceDe
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.CantidadIce = datatype.Nilable[float64]{Value: &val}
 	return b
 }

@@ -146,7 +146,7 @@ func SignWithP12(xmlBytes []byte, p12Path, password string) ([]byte, error) {
 }
 
 // encodeP12ToPEM is an internal helper to avoid code duplication
-func encodeP12ToPEM(priv interface{}, cert *x509.Certificate) ([]byte, []byte, error) {
+func encodeP12ToPEM(priv any, cert *x509.Certificate) ([]byte, []byte, error) {
 	rsaPriv, ok := priv.(*rsa.PrivateKey)
 	if !ok {
 		return nil, nil, fmt.Errorf("private key is not of type RSA")

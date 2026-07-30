@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
@@ -196,12 +197,12 @@ func (b *compraVentaBonificacionesCabeceraBuilder) WithNumeroTarjeta(v *int64) *
 	return b
 }
 func (b *compraVentaBonificacionesCabeceraBuilder) WithMontoTotal(v float64) *compraVentaBonificacionesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 func (b *compraVentaBonificacionesCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *compraVentaBonificacionesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -210,12 +211,12 @@ func (b *compraVentaBonificacionesCabeceraBuilder) WithCodigoMoneda(v int) *comp
 	return b
 }
 func (b *compraVentaBonificacionesCabeceraBuilder) WithTipoCambio(v float64) *compraVentaBonificacionesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 func (b *compraVentaBonificacionesCabeceraBuilder) WithMontoTotalMoneda(v float64) *compraVentaBonificacionesCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -224,7 +225,7 @@ func (b *compraVentaBonificacionesCabeceraBuilder) WithMontoGiftCard(v *float64)
 		b.cabecera.MontoGiftCard = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 2, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
@@ -233,7 +234,7 @@ func (b *compraVentaBonificacionesCabeceraBuilder) WithDescuentoAdicional(v *flo
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 2, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
@@ -296,7 +297,7 @@ func (b *detalleBonificacionesBuilder) WithDescripcion(v string) *detalleBonific
 	return b
 }
 func (b *detalleBonificacionesBuilder) WithCantidad(v float64) *detalleBonificacionesBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -305,7 +306,7 @@ func (b *detalleBonificacionesBuilder) WithUnidadMedida(v int) *detalleBonificac
 	return b
 }
 func (b *detalleBonificacionesBuilder) WithPrecioUnitario(v float64) *detalleBonificacionesBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -314,12 +315,12 @@ func (b *detalleBonificacionesBuilder) WithMontoDescuento(v *float64) *detalleBo
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 5, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
 func (b *detalleBonificacionesBuilder) WithSubTotal(v float64) *detalleBonificacionesBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

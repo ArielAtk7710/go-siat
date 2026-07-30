@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -259,7 +260,7 @@ func (b *lubricantesIehdCabeceraBuilder) WithNumeroTarjeta(v *int64) *lubricante
 }
 
 func (b *lubricantesIehdCabeceraBuilder) WithMontoTotal(v float64) *lubricantesIehdCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -270,13 +271,13 @@ func (b *lubricantesIehdCabeceraBuilder) WithMontoDeduccionIehdDS25530(v *float6
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+	val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 	b.cabecera.MontoDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: &val}
 	return b
 }
 
 func (b *lubricantesIehdCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *lubricantesIehdCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -287,13 +288,13 @@ func (b *lubricantesIehdCabeceraBuilder) WithCodigoMoneda(v int) *lubricantesIeh
 }
 
 func (b *lubricantesIehdCabeceraBuilder) WithTipoCambio(v float64) *lubricantesIehdCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *lubricantesIehdCabeceraBuilder) WithMontoTotalMoneda(v float64) *lubricantesIehdCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -304,7 +305,7 @@ func (b *lubricantesIehdCabeceraBuilder) WithDescuentoAdicional(v *float64) *lub
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+	val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &val}
 	return b
 }
@@ -374,7 +375,7 @@ func (b *lubricantesIehdDetalleBuilder) WithDescripcion(v string) *lubricantesIe
 }
 
 func (b *lubricantesIehdDetalleBuilder) WithCantidad(v float64) *lubricantesIehdDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -385,7 +386,7 @@ func (b *lubricantesIehdDetalleBuilder) WithUnidadMedida(v int) *lubricantesIehd
 }
 
 func (b *lubricantesIehdDetalleBuilder) WithPrecioUnitario(v float64) *lubricantesIehdDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -396,19 +397,19 @@ func (b *lubricantesIehdDetalleBuilder) WithMontoDescuento(v *float64) *lubrican
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	return b
 }
 
 func (b *lubricantesIehdDetalleBuilder) WithSubTotal(v float64) *lubricantesIehdDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }
 
 func (b *lubricantesIehdDetalleBuilder) WithCantidadLitros(v float64) *lubricantesIehdDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.CantidadLitros = v
 	return b
 }
@@ -419,7 +420,7 @@ func (b *lubricantesIehdDetalleBuilder) WithPorcentajeDeduccionIehdDS25530(v *fl
 		return b
 	}
 	val := *v
-	val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 5, 64), 64)
+	val = decimal.NewFromFloat(val).Round(5).InexactFloat64()
 	b.detalle.PorcentajeDeduccionIehdDS25530 = datatype.Nilable[float64]{Value: &val}
 	return b
 }

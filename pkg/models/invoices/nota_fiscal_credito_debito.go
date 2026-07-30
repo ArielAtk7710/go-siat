@@ -8,6 +8,7 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/documents"
 	"github.com/ron86i/go-siat/v2/pkg/models"
+	"github.com/shopspring/decimal"
 )
 
 // NotaFiscalCreditoDebito representa la estructura completa de una nota de crédito/débito standard (Sector 24) lista para ser procesada.
@@ -279,7 +280,7 @@ func (b *notaDetalleFiscalCreditoDebitoBuilder) WithDescripcion(v string) *notaD
 }
 
 func (b *notaDetalleFiscalCreditoDebitoBuilder) WithCantidad(v float64) *notaDetalleFiscalCreditoDebitoBuilder {
-	b.detalle.Cantidad = datatype.Float64Round(v, 10)
+	b.detalle.Cantidad = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
@@ -289,7 +290,7 @@ func (b *notaDetalleFiscalCreditoDebitoBuilder) WithUnidadMedida(v int) *notaDet
 }
 
 func (b *notaDetalleFiscalCreditoDebitoBuilder) WithPrecioUnitario(v float64) *notaDetalleFiscalCreditoDebitoBuilder {
-	b.detalle.PrecioUnitario = datatype.Float64Round(v, 10)
+	b.detalle.PrecioUnitario = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
@@ -297,14 +298,14 @@ func (b *notaDetalleFiscalCreditoDebitoBuilder) WithMontoDescuento(v *float64) *
 	if v == nil {
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
-		val := datatype.Float64Round(*v, 10)
+		val := decimal.NewFromFloat(*v).Round(10).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *notaDetalleFiscalCreditoDebitoBuilder) WithSubTotal(v float64) *notaDetalleFiscalCreditoDebitoBuilder {
-	b.detalle.SubTotal = datatype.Float64Round(v, 10)
+	b.detalle.SubTotal = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 

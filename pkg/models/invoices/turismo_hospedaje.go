@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -269,7 +270,7 @@ func (b *turismoHospedajeCabeceraBuilder) WithNumeroTarjeta(v *int64) *turismoHo
 }
 
 func (b *turismoHospedajeCabeceraBuilder) WithMontoTotal(v float64) *turismoHospedajeCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -280,13 +281,13 @@ func (b *turismoHospedajeCabeceraBuilder) WithCodigoMoneda(v int) *turismoHosped
 }
 
 func (b *turismoHospedajeCabeceraBuilder) WithTipoCambio(v float64) *turismoHospedajeCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *turismoHospedajeCabeceraBuilder) WithMontoTotalMoneda(v float64) *turismoHospedajeCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -297,7 +298,7 @@ func (b *turismoHospedajeCabeceraBuilder) WithMontoGiftCard(v *float64) *turismo
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -308,7 +309,7 @@ func (b *turismoHospedajeCabeceraBuilder) WithDescuentoAdicional(v *float64) *tu
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -344,7 +345,7 @@ func (b *turismoHospedajeCabeceraBuilder) WithUsuario(v string) *turismoHospedaj
 }
 
 func (b *turismoHospedajeCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *turismoHospedajeCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -394,7 +395,7 @@ func (b *turismoHospedajeDetalleBuilder) WithCodigoTipoHabitacion(v *int) *turis
 }
 
 func (b *turismoHospedajeDetalleBuilder) WithCantidad(v float64) *turismoHospedajeDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -405,7 +406,7 @@ func (b *turismoHospedajeDetalleBuilder) WithUnidadMedida(v int) *turismoHospeda
 }
 
 func (b *turismoHospedajeDetalleBuilder) WithPrecioUnitario(v float64) *turismoHospedajeDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -416,13 +417,13 @@ func (b *turismoHospedajeDetalleBuilder) WithMontoDescuento(v *float64) *turismo
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *turismoHospedajeDetalleBuilder) WithSubTotal(v float64) *turismoHospedajeDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

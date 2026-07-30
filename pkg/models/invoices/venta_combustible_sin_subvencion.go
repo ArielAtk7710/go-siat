@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -233,13 +234,13 @@ func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithNumeroTarjeta(v *int6
 }
 
 func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithMontoTotal(v float64) *ventaCombustibleSinSubvencionCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *ventaCombustibleSinSubvencionCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -270,13 +271,13 @@ func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithCodigoMoneda(v int) *
 }
 
 func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithTipoCambio(v float64) *ventaCombustibleSinSubvencionCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithMontoTotalMoneda(v float64) *ventaCombustibleSinSubvencionCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -287,7 +288,7 @@ func (b *ventaCombustibleSinSubvencionCabeceraBuilder) WithDescuentoAdicional(v 
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -357,7 +358,7 @@ func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithDescripcion(v string) 
 }
 
 func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithCantidad(v float64) *ventaCombustibleSinSubvencionDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -368,7 +369,7 @@ func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithUnidadMedida(v int) *v
 }
 
 func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithPrecioUnitario(v float64) *ventaCombustibleSinSubvencionDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -379,13 +380,13 @@ func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithMontoDescuento(v *floa
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 5, 64), 64)
+	value = decimal.NewFromFloat(value).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *ventaCombustibleSinSubvencionDetalleBuilder) WithSubTotal(v float64) *ventaCombustibleSinSubvencionDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

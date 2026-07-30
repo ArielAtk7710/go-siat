@@ -88,69 +88,71 @@ Both expose the same nine-method interface, so switching modality is a one-word 
 
 SIAT's regulatory catalog defines **51 document sector codes**. The SDK ships builders for **50 of them**; the single gap is flagged below.
 
-Builder names drop the `New`/`Builder` wrapper — `CompraVenta` means `invoices.NewCompraVentaBuilder()`. In the **Facade** column, *Modality* means `Electronica()` or `Computarizada()` depending on how you are invoicing.
+Builder names drop the `New`/`Builder` wrapper — `CompraVenta` means `invoices.NewCompraVentaBuilder()`. The **Modalities** column is what `WithModalidad` on the root builder accepts for that sector; the **Facade** column is which service method the *submission* goes through — for sectors marked "`Electronica()` or `Computarizada()`" there, you pick the facade to match the modality you built.
 
-| Code | Description | Tax credit | Builder | Facade |
-| ---: | :--- | :--- | :--- | :--- |
-| 1 | Sales and purchases | Yes | `CompraVenta` | `CompraVenta()` |
-| 2 | Real estate rental | Yes | `AlquilerBienInmueble` | Modality |
-| 3 | Commercial export | No | `ComercialExportacion` | Modality |
-| 4 | Commercial export on free consignment | No | `LibreConsignacion` | Modality |
-| 5 | Free trade zone sales | No | `ZonaFranca` | Modality |
-| 6 | Tourism and lodging services | No | `TurismoHospedaje` | Modality |
-| 7 | Food security and supply | No | `SeguridadAlimentaria` | Modality |
-| 8 | Zero rate — books and international road freight | No | `TasaCero` | Modality |
-| 9 | Foreign currency exchange | No | `MonedaExtranjera` | Modality |
-| 10 | Duty free | No | `DuttyFree` | Modality |
-| 11 | Education sector | Yes | `SectorEducativo` | Modality |
-| 12 | Hydrocarbon retail | Yes | `ComercializacionHidro` | Modality |
-| 13 | Basic services | Yes | `ServicioBasico` | `ServicioBasico()` |
-| 14 | ICE-liable products | Yes | `AlcanzadaIce` | Modality |
-| 15 | Financial institutions | Yes | `EntidadFinanciera` | `EntidadFinanciera()` |
-| 16 | Hotels | Yes | `Hotel` | Modality |
-| 17 | Hospitals / clinics | Yes | `HospitalClinica` | Modality |
-| 18 | Games of chance | Yes | `JuegoAzar` | Modality |
-| 19 | Hydrocarbons subject to IEHD | Yes | `HidrocarburoAlcanzadaIehd` | Modality |
-| 20 | Mineral export | No | `ComercialExportacionMinera` | Modality |
-| 21 | Domestic mineral sales | Yes | `VentaMineral` | Modality |
-| 22 | Telecommunications | Yes | `Telecomunicaciones` | `Telecomunicaciones()` |
-| 23 | Prevalued | Yes | `Prevalorada` | Modality |
-| 24 | Credit/debit note | Adjustment | `NotaCreditoDebito` · `NotaFiscalCreditoDebito` | `DocumentoAjuste()` |
-| 28 | Commercial export of services | No | `ComercialExportacionServicio` | Modality |
-| 29 | Conciliation note | Adjustment | `NotaConciliacion` | `DocumentoAjuste()` |
-| 30 | Air ticket | Equivalent doc | `BoletoAereo` | `BoletoAereo()` |
-| 31 | Energy supply | Yes | `SuministroEnergia` | Modality |
-| **33** | **Zero rate VAT, Law 1613** | No | **— no builder** | — |
-| 34 | Insurance | Yes | `Seguros` | Modality |
-| 35 | Sales with bonuses | Yes | `CompraVentaBonificaciones` | `CompraVenta()` |
-| 36 | Prevalued without tax credit | No | `PrevaloradaSinDerechoCreditoFiscal` | Modality |
-| 37 | CNG retail | Yes | `ComercializacionGnv` | Modality |
-| 38 | Hydrocarbons not subject to IEHD | Yes | `HidrocarburoNoAlcanzadaIehd` | Modality |
-| 39 | Natural gas and LPG retail | Yes | `ComercializacionGnGlp` | Modality |
-| 40 | Basic services, free trade zone | No | `ServicioBasicoZF` | `ServicioBasico()` |
-| 41 | Sales with non-creditable fees | Yes | `CompraVentaTasas` | `CompraVenta()` |
-| 42 | Rental, free trade zone | No | `AlquilerZF` | Modality |
-| 43 | Hydrocarbon export | No | `ComercialExportacionHidro` | Modality |
-| 44 | Lubricant import and retail | Yes | `ImportacionComercializacionLubricantes` | Modality |
-| 45 | Commercial export at sale price | No | `ComercialExportacionPVenta` | Modality |
-| 46 | Education, free trade zone | No | `SectorEducativoZF` | Modality |
-| 47 | Credit/debit note with discount | Adjustment | `NotaCreditoDebitoDescuento` | `DocumentoAjuste()` |
-| 48 | ICE credit/debit note | Adjustment | `NotaCreditoDebitoIce` | `DocumentoAjuste()` |
-| 49 | Telecommunications, free trade zone | No | `TelecomunicacionesZF` | `Telecomunicaciones()` |
-| 50 | Hospitals / clinics, free trade zone | No | `HospitalClinicaZF` | Modality |
-| 51 | Gas bottling plants | Yes | `Engarrafadoras` | Modality |
-| 52 | Mineral sales to the Central Bank | No | `VentaMineralBCB` | `Electronica()` only |
-| 53 | Lubricant import and retail, IEHD | Yes | `LubricantesIehd` | Modality |
-| 54 | Biodiesel / ecological diesel feedstock | No | `Biodiesel` | Modality |
-| 55 | Fuel retail | Yes | `VentaCombustibleSinSubvencion` | Modality |
+| Code | Description | Tax credit | Modalities | Builder | Facade |
+| ---: | :--- | :--- | :--- | :--- | :--- |
+| 1 | Sales and purchases | Yes | Electrónica & Computarizada | `CompraVenta` | `CompraVenta()` |
+| 2 | Real estate rental | Yes | Electrónica & Computarizada | `AlquilerBienInmueble` | `Electronica()` or `Computarizada()` |
+| 3 | Commercial export | No | Electrónica & Computarizada | `ComercialExportacion` | `Electronica()` or `Computarizada()` |
+| 4 | Commercial export on free consignment | No | Electrónica & Computarizada | `LibreConsignacion` | `Electronica()` or `Computarizada()` |
+| 5 | Free trade zone sales | No | Electrónica & Computarizada | `ZonaFranca` | `Electronica()` or `Computarizada()` |
+| 6 | Tourism and lodging services | No | Electrónica & Computarizada | `TurismoHospedaje` | `Electronica()` or `Computarizada()` |
+| 7 | Food security and supply | No | Electrónica & Computarizada | `SeguridadAlimentaria` | `Electronica()` or `Computarizada()` |
+| 8 | Zero rate — books and international road freight | No | Electrónica & Computarizada | `TasaCero` | `Electronica()` or `Computarizada()` |
+| 9 | Foreign currency exchange | No | Electrónica & Computarizada | `MonedaExtranjera` | `Electronica()` or `Computarizada()` |
+| 10 | Duty free | No | Electrónica & Computarizada | `DuttyFree` | `Electronica()` or `Computarizada()` |
+| 11 | Education sector | Yes | Electrónica & Computarizada | `SectorEducativo` | `Electronica()` or `Computarizada()` |
+| 12 | Hydrocarbon retail | Yes | Electrónica & Computarizada | `ComercializacionHidro` | `Electronica()` or `Computarizada()` |
+| 13 | Basic services | Yes | Electrónica & Computarizada | `ServicioBasico` | `ServicioBasico()` |
+| 14 | ICE-liable products | Yes | Electrónica & Computarizada | `AlcanzadaIce` | `Electronica()` or `Computarizada()` |
+| 15 | Financial institutions | Yes | Electrónica & Computarizada | `EntidadFinanciera` | `EntidadFinanciera()` |
+| 16 | Hotels | Yes | Electrónica & Computarizada | `Hotel` | `Electronica()` or `Computarizada()` |
+| 17 | Hospitals / clinics | Yes | Electrónica & Computarizada | `HospitalClinica` | `Electronica()` or `Computarizada()` |
+| 18 | Games of chance | Yes | Electrónica & Computarizada | `JuegoAzar` | `Electronica()` or `Computarizada()` |
+| 19 | Hydrocarbons subject to IEHD | Yes | Electrónica & Computarizada | `HidrocarburoAlcanzadaIehd` | `Electronica()` or `Computarizada()` |
+| 20 | Mineral export | No | Electrónica & Computarizada | `ComercialExportacionMinera` | `Electronica()` or `Computarizada()` |
+| 21 | Domestic mineral sales | Yes | Electrónica & Computarizada | `VentaMineral` | `Electronica()` or `Computarizada()` |
+| 22 | Telecommunications | Yes | Electrónica & Computarizada | `Telecomunicaciones` | `Telecomunicaciones()` |
+| 23 | Prevalued | Yes | Electrónica & Computarizada | `Prevalorada` | `Electronica()` or `Computarizada()` |
+| 24 | Credit/debit note | Adjustment | Electrónica & Computarizada | `NotaCreditoDebito` · `NotaFiscalCreditoDebito` | `DocumentoAjuste()` |
+| 28 | Commercial export of services | No | Electrónica & Computarizada | `ComercialExportacionServicio` | `Electronica()` or `Computarizada()` |
+| 29 | Conciliation note | Adjustment | Electrónica & Computarizada | `NotaConciliacion` | `DocumentoAjuste()` |
+| 30 | Air ticket | Equivalent doc | Electrónica & Computarizada | `BoletoAereo` | `BoletoAereo()` |
+| 31 | Energy supply | Yes | Electrónica & Computarizada | `SuministroEnergia` | `Electronica()` or `Computarizada()` |
+| **33** | **Zero rate VAT, Law 1613** | No | — | **— no builder** | — |
+| 34 | Insurance | Yes | Electrónica & Computarizada | `Seguros` | `Electronica()` or `Computarizada()` |
+| 35 | Sales with bonuses | Yes | Electrónica & Computarizada | `CompraVentaBonificaciones` | `CompraVenta()` |
+| 36 | Prevalued without tax credit | No | Electrónica & Computarizada | `PrevaloradaSinDerechoCreditoFiscal` | `Electronica()` or `Computarizada()` |
+| 37 | CNG retail | Yes | Electrónica & Computarizada | `ComercializacionGnv` | `Electronica()` or `Computarizada()` |
+| 38 | Hydrocarbons not subject to IEHD | Yes | Electrónica & Computarizada | `HidrocarburoNoAlcanzadaIehd` | `Electronica()` or `Computarizada()` |
+| 39 | Natural gas and LPG retail | Yes | Electrónica & Computarizada | `ComercializacionGnGlp` | `Electronica()` or `Computarizada()` |
+| 40 | Basic services, free trade zone | No | Electrónica & Computarizada | `ServicioBasicoZF` | `ServicioBasico()` |
+| 41 | Sales with non-creditable fees | Yes | Electrónica & Computarizada | `CompraVentaTasas` | `CompraVenta()` |
+| 42 | Rental, free trade zone | No | Electrónica & Computarizada | `AlquilerZF` | `Electronica()` or `Computarizada()` |
+| 43 | Hydrocarbon export | No | Electrónica & Computarizada | `ComercialExportacionHidro` | `Electronica()` or `Computarizada()` |
+| 44 | Lubricant import and retail | Yes | Electrónica & Computarizada | `ImportacionComercializacionLubricantes` | `Electronica()` or `Computarizada()` |
+| 45 | Commercial export at sale price | No | Electrónica & Computarizada | `ComercialExportacionPVenta` | `Electronica()` or `Computarizada()` |
+| 46 | Education, free trade zone | No | Electrónica & Computarizada | `SectorEducativoZF` | `Electronica()` or `Computarizada()` |
+| 47 | Credit/debit note with discount | Adjustment | Electrónica & Computarizada | `NotaCreditoDebitoDescuento` | `DocumentoAjuste()` |
+| 48 | ICE credit/debit note | Adjustment | Electrónica & Computarizada | `NotaCreditoDebitoIce` | `DocumentoAjuste()` |
+| 49 | Telecommunications, free trade zone | No | Electrónica & Computarizada | `TelecomunicacionesZF` | `Telecomunicaciones()` |
+| 50 | Hospitals / clinics, free trade zone | No | Electrónica & Computarizada | `HospitalClinicaZF` | `Electronica()` or `Computarizada()` |
+| 51 | Gas bottling plants | Yes | Electrónica & Computarizada | `Engarrafadoras` | `Electronica()` or `Computarizada()` |
+| 52 | Mineral sales to the Central Bank | No | **Electrónica only** | `VentaMineralBCB` | `Electronica()` only |
+| 53 | Lubricant import and retail, IEHD | Yes | Electrónica & Computarizada | `LubricantesIehd` | `Electronica()` or `Computarizada()` |
+| 54 | Biodiesel / ecological diesel feedstock | No | Electrónica & Computarizada | `Biodiesel` | `Electronica()` or `Computarizada()` |
+| 55 | Fuel retail | Yes | Electrónica & Computarizada | `VentaCombustibleSinSubvencion` | `Electronica()` or `Computarizada()` |
 
-Four things worth reading off this table:
+Five things worth reading off this table:
 
 **The codes are not contiguous.** 25, 26, 27 and 32 are absent from SIAT's own catalog. Do not invent them or use them as filler.
 
 **24 appears twice deliberately.** `NotaCreditoDebito` and `NotaFiscalCreditoDebito` are two document layouts sharing one sector code. Pick the one whose field list matches the note you are issuing.
 
-**52 is electronic-only.** Regulation restricts mineral sales to the Central Bank to electronic modality, so it goes through `Electronica()` and always requires a signature.
+**Only 52 is restricted to one modality.** Every other sector's builder accepts both `ModalidadElectronica` and `ModalidadComputarizada` — the choice is yours based on how you are invoicing. Regulation restricts mineral sales to the Central Bank to electronic modality specifically, so `VentaMineralBCB` goes through `Electronica()` and always requires a signature; passing `ModalidadComputarizada` to its builder produces a document SIAT will reject.
+
+**Modalities and Facade answer different questions.** Modalities is what the invoice *document* is built as. Facade is which *service method* you call to submit it. For the fourteen dedicated-endpoint sectors these are decoupled — a `CompraVenta()` submission can carry either an electronic or a computarized document, because the facade is chosen by activity, not modality. For the other sectors the two collapse into one choice: build electronic, call `Electronica()`; build computarized, call `Computarizada()`.
 
 **`ZF` means *zona franca*.** It is the free-trade-zone variant of a sector, with a different code and extra fields — and almost always without tax credit even where the base sector grants it (compare 13 with 40, 22 with 49, 17 with 50).
 

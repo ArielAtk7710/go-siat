@@ -78,18 +78,6 @@ func parseSoapResponse[T any](resp *http.Response) (*soap.EnvelopeResponse[T], e
 	return &result, nil
 }
 
-// requestWrapper es una envoltura genérica utilizada para ocultar la implementación concreta
-// de una solicitud y satisfacer las interfaces opacas del SDK.
-type requestWrapper[T any] struct {
-	request *T
-}
-
-// MarshalXML implementa la interfaz xml.Marshaler para delegar la serialización
-// al objeto interno, evitando que la etiqueta raíz sea "requestWrapper".
-func (r requestWrapper[T]) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
-	return e.Encode(r.request)
-}
-
 // getInternalRequest desempaqueta la estructura de solicitud concreta desde una interfaz opaca
 // delegando la operación al paquete models. Esto mantiene la opacidad hacia el usuario final
 // mientras permite que las capas internas accedan a los datos necesarios para la comunicación.
