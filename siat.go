@@ -181,7 +181,7 @@ func New(config Config) (*SiatServices, error) {
 // Verify analiza una respuesta del SIAT y determina si la operación fue exitosa.
 // Si la respuesta contiene errores del SIAT (Transaccion=false o mensajes de error),
 // construye y retorna un *SiatError detallado.
-func Verify(resp interface{}) error {
+func Verify(resp any) error {
 	if resp == nil {
 		return nil
 	}
@@ -228,8 +228,8 @@ func checkResult(success bool, mensajes []common.MensajeServicio) error {
 	return nil
 }
 
-// Map is a shortcut for map[string]interface{}, useful for JSON returns
-type Map map[string]interface{}
+// Map is a shortcut for map[string]any, useful for JSON returns
+type Map map[string]any
 
 func (m Map) ToJSON() (string, error) {
 	bytes, err := json.Marshal(m)
@@ -258,7 +258,7 @@ func (m Map) Sum() float64 {
 	return total
 }
 
-func (m Map) ToStruct(v interface{}) error {
+func (m Map) ToStruct(v any) error {
 	bytes, err := m.ToJSON()
 	if err != nil {
 		return err

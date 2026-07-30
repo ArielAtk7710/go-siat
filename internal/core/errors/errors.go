@@ -28,7 +28,7 @@ type SiatError struct {
 	IsRetryable bool
 
 	// Details contiene información adicional para debugging
-	Details map[string]interface{}
+	Details map[string]any
 
 	// Mensajes contiene la lista detallada de mensajes devueltos por el servidor SIAT
 	Mensajes []common.MensajeServicio

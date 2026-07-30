@@ -248,7 +248,7 @@ func (b *comercialExportacionCabeceraBuilder) WithMontoTotal(v float64) *comerci
 	return b
 }
 
-func (b *comercialExportacionCabeceraBuilder) WithCostosGastosNacionales(v map[string]interface{}) *comercialExportacionCabeceraBuilder {
+func (b *comercialExportacionCabeceraBuilder) WithCostosGastosNacionales(v map[string]any) *comercialExportacionCabeceraBuilder {
 	if v == nil {
 		b.cabecera.CostosGastosNacionales = datatype.Nilable[string]{Value: nil}
 		return b
@@ -268,7 +268,7 @@ func (b *comercialExportacionCabeceraBuilder) WithTotalGastosNacionalesFob(v flo
 	return b
 }
 
-func (b *comercialExportacionCabeceraBuilder) WithCostosGastosInternacionales(v map[string]interface{}) *comercialExportacionCabeceraBuilder {
+func (b *comercialExportacionCabeceraBuilder) WithCostosGastosInternacionales(v map[string]any) *comercialExportacionCabeceraBuilder {
 	if v == nil {
 		b.cabecera.CostosGastosInternacionales = datatype.Nilable[string]{Value: nil}
 		return b
@@ -316,7 +316,7 @@ func (b *comercialExportacionCabeceraBuilder) WithMontoTotalMoneda(v float64) *c
 	return b
 }
 
-func (b *comercialExportacionCabeceraBuilder) WithNumeroDescripcionPaquetesBultos(v map[string]interface{}) *comercialExportacionCabeceraBuilder {
+func (b *comercialExportacionCabeceraBuilder) WithNumeroDescripcionPaquetesBultos(v map[string]any) *comercialExportacionCabeceraBuilder {
 	if v == nil {
 		b.cabecera.NumeroDescripcionPaquetesBultos = datatype.Nilable[string]{Value: nil}
 		return b
