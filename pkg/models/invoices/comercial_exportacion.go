@@ -3,6 +3,7 @@ package invoices
 import (
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"time"
 
 	"github.com/shopspring/decimal"
@@ -252,7 +253,10 @@ func (b *comercialExportacionCabeceraBuilder) WithCostosGastosNacionales(v map[s
 		b.cabecera.CostosGastosNacionales = datatype.Nilable[string]{Value: nil}
 		return b
 	}
-	jsonData, _ := json.Marshal(v)
+	jsonData, err := json.Marshal(v)
+	if err != nil {
+		panic(fmt.Sprintf("WithCostosGastosNacionales: valor no serializable a JSON: %v", err))
+	}
 	val := string(jsonData)
 	b.cabecera.CostosGastosNacionales = datatype.Nilable[string]{Value: &val}
 	return b
@@ -269,7 +273,10 @@ func (b *comercialExportacionCabeceraBuilder) WithCostosGastosInternacionales(v 
 		b.cabecera.CostosGastosInternacionales = datatype.Nilable[string]{Value: nil}
 		return b
 	}
-	jsonData, _ := json.Marshal(v)
+	jsonData, err := json.Marshal(v)
+	if err != nil {
+		panic(fmt.Sprintf("WithCostosGastosInternacionales: valor no serializable a JSON: %v", err))
+	}
 	val := string(jsonData)
 	b.cabecera.CostosGastosInternacionales = datatype.Nilable[string]{Value: &val}
 	return b
@@ -314,7 +321,10 @@ func (b *comercialExportacionCabeceraBuilder) WithNumeroDescripcionPaquetesBulto
 		b.cabecera.NumeroDescripcionPaquetesBultos = datatype.Nilable[string]{Value: nil}
 		return b
 	}
-	jsonData, _ := json.Marshal(v)
+	jsonData, err := json.Marshal(v)
+	if err != nil {
+		panic(fmt.Sprintf("WithNumeroDescripcionPaquetesBultos: valor no serializable a JSON: %v", err))
+	}
 	val := string(jsonData)
 	b.cabecera.NumeroDescripcionPaquetesBultos = datatype.Nilable[string]{Value: &val}
 	return b
