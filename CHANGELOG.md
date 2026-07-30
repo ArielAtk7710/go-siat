@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1](https://github.com/ron86i/go-siat/compare/v2.1.0...v2.1.1) (2026-07-30)
+
+
+### Bug Fixes
+
+* panic on json.Marshal failure in ComercialExportacion builders ([961af22](https://github.com/ron86i/go-siat/commit/961af226332ca50b53730d1948b1c07caba13f69))
+* remove dead requestWrapper type; correct inflated method count in docs ([6115a47](https://github.com/ron86i/go-siat/commit/6115a47f5c49ee4db346195e7d3a3f57562ec920))
+
 ## [2.1.0](https://github.com/ron86i/go-siat/compare/v2.0.2...v2.1.0) (2026-07-27)
 
 
