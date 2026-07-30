@@ -8,7 +8,7 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/documents"
 	"github.com/ron86i/go-siat/v2/pkg/models"
-	"github.com/ron86i/go-siat/v2/pkg/utils"
+	"github.com/shopspring/decimal"
 )
 
 // Telecomunicaciones representa la estructura completa de una factura de telecomunicaciones lista para ser procesada.
@@ -226,12 +226,12 @@ func (b *telecomunicacionesCabeceraBuilder) WithNumeroTarjeta(v *int64) *telecom
 }
 
 func (b *telecomunicacionesCabeceraBuilder) WithMontoTotal(v float64) *telecomunicacionesCabeceraBuilder {
-	b.cabecera.MontoTotal = utils.Round(v, 2)
+	b.cabecera.MontoTotal = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
 func (b *telecomunicacionesCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *telecomunicacionesCabeceraBuilder {
-	b.cabecera.MontoTotalSujetoIva = utils.Round(v, 2)
+	b.cabecera.MontoTotalSujetoIva = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -241,12 +241,12 @@ func (b *telecomunicacionesCabeceraBuilder) WithCodigoMoneda(v int) *telecomunic
 }
 
 func (b *telecomunicacionesCabeceraBuilder) WithTipoCambio(v float64) *telecomunicacionesCabeceraBuilder {
-	b.cabecera.TipoCambio = utils.Round(v, 2)
+	b.cabecera.TipoCambio = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
 func (b *telecomunicacionesCabeceraBuilder) WithMontoTotalMoneda(v float64) *telecomunicacionesCabeceraBuilder {
-	b.cabecera.MontoTotalMoneda = utils.Round(v, 2)
+	b.cabecera.MontoTotalMoneda = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -254,7 +254,7 @@ func (b *telecomunicacionesCabeceraBuilder) WithMontoGiftCard(v *float64) *telec
 	if v == nil {
 		b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: nil}
 	} else {
-		val := utils.Round(*v, 2)
+		val := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
@@ -264,7 +264,7 @@ func (b *telecomunicacionesCabeceraBuilder) WithDescuentoAdicional(v *float64) *
 	if v == nil {
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: nil}
 	} else {
-		val := utils.Round(*v, 2)
+		val := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
@@ -331,7 +331,7 @@ func (b *telecomunicacionesDetalleBuilder) WithDescripcion(v string) *telecomuni
 }
 
 func (b *telecomunicacionesDetalleBuilder) WithCantidad(v float64) *telecomunicacionesDetalleBuilder {
-	b.detalle.Cantidad = utils.Round(v, 5)
+	b.detalle.Cantidad = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	return b
 }
 
@@ -341,7 +341,7 @@ func (b *telecomunicacionesDetalleBuilder) WithUnidadMedida(v int) *telecomunica
 }
 
 func (b *telecomunicacionesDetalleBuilder) WithPrecioUnitario(v float64) *telecomunicacionesDetalleBuilder {
-	b.detalle.PrecioUnitario = utils.Round(v, 5)
+	b.detalle.PrecioUnitario = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	return b
 }
 
@@ -349,14 +349,14 @@ func (b *telecomunicacionesDetalleBuilder) WithMontoDescuento(v *float64) *telec
 	if v == nil {
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
-		val := utils.Round(*v, 5)
+		val := decimal.NewFromFloat(*v).Round(5).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *telecomunicacionesDetalleBuilder) WithSubTotal(v float64) *telecomunicacionesDetalleBuilder {
-	b.detalle.SubTotal = utils.Round(v, 5)
+	b.detalle.SubTotal = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	return b
 }
 

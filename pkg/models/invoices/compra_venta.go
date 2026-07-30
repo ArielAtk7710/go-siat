@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
@@ -244,7 +245,7 @@ func (b *compraVentaCabeceraBuilder) WithNumeroTarjeta(v *int64) *compraVentaCab
 // WithMontoTotal configura el monto total de la factura, redondeado automáticamente a 2 decimales.
 func (b *compraVentaCabeceraBuilder) WithMontoTotal(v float64) *compraVentaCabeceraBuilder {
 	// Asegurar que el valor sea redondeado a 2 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -252,7 +253,7 @@ func (b *compraVentaCabeceraBuilder) WithMontoTotal(v float64) *compraVentaCabec
 // WithMontoTotalSujetoIva configura el monto base para el crédito fiscal IVA, redondeado automáticamente.
 func (b *compraVentaCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *compraVentaCabeceraBuilder {
 	// Asegurar que el valor sea redondeado a 2 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -266,7 +267,7 @@ func (b *compraVentaCabeceraBuilder) WithCodigoMoneda(v int) *compraVentaCabecer
 // WithTipoCambio configura el tipo de cambio respecto al Boliviano, redondeado automáticamente.
 func (b *compraVentaCabeceraBuilder) WithTipoCambio(v float64) *compraVentaCabeceraBuilder {
 	// Asegurar que el valor sea redondeado a 2 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
@@ -274,7 +275,7 @@ func (b *compraVentaCabeceraBuilder) WithTipoCambio(v float64) *compraVentaCabec
 // WithMontoTotalMoneda configura el monto total expresado en la moneda original, redondeado automáticamente.
 func (b *compraVentaCabeceraBuilder) WithMontoTotalMoneda(v float64) *compraVentaCabeceraBuilder {
 	// Asegurar que el valor sea redondeado a 2 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -288,7 +289,7 @@ func (b *compraVentaCabeceraBuilder) WithMontoGiftCard(v *float64) *compraVentaC
 
 	value := *v
 	// Asegurar que el valor sea redondeado a 2 decimales
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -302,7 +303,7 @@ func (b *compraVentaCabeceraBuilder) WithDescuentoAdicional(v *float64) *compraV
 
 	value := *v
 	// Asegurar que el valor sea redondeado a 2 decimales
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -385,7 +386,7 @@ func (b *detalleBuilder) WithDescripcion(v string) *detalleBuilder {
 
 // WithCantidad configura la cantidad vendida, según XSD acepta hasta 5 decimales.
 func (b *detalleBuilder) WithCantidad(v float64) *detalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -398,7 +399,7 @@ func (b *detalleBuilder) WithUnidadMedida(v int) *detalleBuilder {
 
 // WithPrecioUnitario configura el precio unitario, según XSD acepta hasta 5 decimales.
 func (b *detalleBuilder) WithPrecioUnitario(v float64) *detalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -411,14 +412,14 @@ func (b *detalleBuilder) WithMontoDescuento(v *float64) *detalleBuilder {
 	}
 
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 5, 64), 64)
+	value = decimal.NewFromFloat(value).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 // WithSubTotal configura el subtotal del ítem. Acepta hasta 5 decimales.
 func (b *detalleBuilder) WithSubTotal(v float64) *detalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

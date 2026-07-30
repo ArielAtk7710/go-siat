@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
@@ -201,12 +202,12 @@ func (b *compraVentaTasasCabeceraBuilder) WithNumeroTarjeta(v *int64) *compraVen
 	return b
 }
 func (b *compraVentaTasasCabeceraBuilder) WithMontoTotal(v float64) *compraVentaTasasCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 func (b *compraVentaTasasCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *compraVentaTasasCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -215,12 +216,12 @@ func (b *compraVentaTasasCabeceraBuilder) WithCodigoMoneda(v int) *compraVentaTa
 	return b
 }
 func (b *compraVentaTasasCabeceraBuilder) WithTipoCambio(v float64) *compraVentaTasasCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 func (b *compraVentaTasasCabeceraBuilder) WithMontoTotalMoneda(v float64) *compraVentaTasasCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -229,7 +230,7 @@ func (b *compraVentaTasasCabeceraBuilder) WithMontoGiftCard(v *float64) *compraV
 		b.cabecera.MontoGiftCard = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 2, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
@@ -240,7 +241,7 @@ func (b *compraVentaTasasCabeceraBuilder) WithMontoTasa(v *float64) *compraVenta
 		b.cabecera.MontoTasa = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 2, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 	b.cabecera.MontoTasa = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
@@ -249,7 +250,7 @@ func (b *compraVentaTasasCabeceraBuilder) WithDescuentoAdicional(v *float64) *co
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 2, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
@@ -312,7 +313,7 @@ func (b *detalleTasasBuilder) WithDescripcion(v string) *detalleTasasBuilder {
 	return b
 }
 func (b *detalleTasasBuilder) WithCantidad(v float64) *detalleTasasBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -321,7 +322,7 @@ func (b *detalleTasasBuilder) WithUnidadMedida(v int) *detalleTasasBuilder {
 	return b
 }
 func (b *detalleTasasBuilder) WithPrecioUnitario(v float64) *detalleTasasBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -330,12 +331,12 @@ func (b *detalleTasasBuilder) WithMontoDescuento(v *float64) *detalleTasasBuilde
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{}
 		return b
 	}
-	cp, _ := strconv.ParseFloat(strconv.FormatFloat(*v, 'f', 5, 64), 64)
+	cp := decimal.NewFromFloat(*v).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &cp}
 	return b
 }
 func (b *detalleTasasBuilder) WithSubTotal(v float64) *detalleTasasBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

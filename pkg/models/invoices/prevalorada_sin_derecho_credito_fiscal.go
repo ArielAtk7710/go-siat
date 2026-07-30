@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -186,13 +187,13 @@ func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithNumeroTarjeta(v 
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithMontoTotal(v float64) *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -203,13 +204,13 @@ func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithCodigoMoneda(v i
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithTipoCambio(v float64) *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder) WithMontoTotalMoneda(v float64) *prevaloradaSinDerechoCreditoFiscalCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -259,7 +260,7 @@ func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithDescripcion(v str
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithCantidad(v float64) *prevaloradaSinDerechoCreditoFiscalDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -270,7 +271,7 @@ func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithUnidadMedida(v in
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithPrecioUnitario(v float64) *prevaloradaSinDerechoCreditoFiscalDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -280,14 +281,14 @@ func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithMontoDescuento(v 
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
 		val := *v
-		val, _ = strconv.ParseFloat(strconv.FormatFloat(val, 'f', 2, 64), 64)
+		val = decimal.NewFromFloat(val).Round(2).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *prevaloradaSinDerechoCreditoFiscalDetalleBuilder) WithSubTotal(v float64) *prevaloradaSinDerechoCreditoFiscalDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

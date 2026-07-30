@@ -8,6 +8,7 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/documents"
 	"github.com/ron86i/go-siat/v2/pkg/models"
+	"github.com/shopspring/decimal"
 )
 
 // NotaConciliacion representa la estructura completa de una nota de conciliación lista para ser procesada.
@@ -304,7 +305,7 @@ func (b *notaDetalleOriginalBuilder) WithDescripcion(v string) *notaDetalleOrigi
 }
 
 func (b *notaDetalleOriginalBuilder) WithCantidad(v float64) *notaDetalleOriginalBuilder {
-	b.detalle.Cantidad = datatype.Float64Round(v, 10)
+	b.detalle.Cantidad = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
@@ -314,7 +315,7 @@ func (b *notaDetalleOriginalBuilder) WithUnidadMedida(v int) *notaDetalleOrigina
 }
 
 func (b *notaDetalleOriginalBuilder) WithPrecioUnitario(v float64) *notaDetalleOriginalBuilder {
-	b.detalle.PrecioUnitario = datatype.Float64Round(v, 10)
+	b.detalle.PrecioUnitario = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
@@ -322,14 +323,14 @@ func (b *notaDetalleOriginalBuilder) WithMontoDescuento(v *float64) *notaDetalle
 	if v == nil {
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
-		val := datatype.Float64Round(*v, 10)
+		val := decimal.NewFromFloat(*v).Round(10).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &val}
 	}
 	return b
 }
 
 func (b *notaDetalleOriginalBuilder) WithSubTotal(v float64) *notaDetalleOriginalBuilder {
-	b.detalle.SubTotal = datatype.Float64Round(v, 10)
+	b.detalle.SubTotal = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
@@ -362,17 +363,17 @@ func (b *notaDetalleConciliacionBuilder) WithDescripcion(v string) *notaDetalleC
 }
 
 func (b *notaDetalleConciliacionBuilder) WithMontoOriginal(v float64) *notaDetalleConciliacionBuilder {
-	b.detalle.MontoOriginal = datatype.Float64Round(v, 10)
+	b.detalle.MontoOriginal = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
 func (b *notaDetalleConciliacionBuilder) WithMontoFinal(v float64) *notaDetalleConciliacionBuilder {
-	b.detalle.MontoFinal = datatype.Float64Round(v, 10)
+	b.detalle.MontoFinal = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 
 func (b *notaDetalleConciliacionBuilder) WithMontoConciliado(v float64) *notaDetalleConciliacionBuilder {
-	b.detalle.MontoConciliado = datatype.Float64Round(v, 10)
+	b.detalle.MontoConciliado = decimal.NewFromFloat(v).Round(10).InexactFloat64()
 	return b
 }
 

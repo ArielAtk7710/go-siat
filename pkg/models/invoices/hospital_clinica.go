@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -218,13 +219,13 @@ func (b *hospitalClinicaCabeceraBuilder) WithNumeroTarjeta(v *int64) *hospitalCl
 }
 
 func (b *hospitalClinicaCabeceraBuilder) WithMontoTotal(v float64) *hospitalClinicaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *hospitalClinicaCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *hospitalClinicaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -235,13 +236,13 @@ func (b *hospitalClinicaCabeceraBuilder) WithCodigoMoneda(v int) *hospitalClinic
 }
 
 func (b *hospitalClinicaCabeceraBuilder) WithTipoCambio(v float64) *hospitalClinicaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *hospitalClinicaCabeceraBuilder) WithMontoTotalMoneda(v float64) *hospitalClinicaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -252,7 +253,7 @@ func (b *hospitalClinicaCabeceraBuilder) WithMontoGiftCard(v *float64) *hospital
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -263,7 +264,7 @@ func (b *hospitalClinicaCabeceraBuilder) WithDescuentoAdicional(v *float64) *hos
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -397,7 +398,7 @@ func (b *hospitalClinicaDetalleBuilder) WithNroFacturaMedico(v *int) *hospitalCl
 }
 
 func (b *hospitalClinicaDetalleBuilder) WithCantidad(v float64) *hospitalClinicaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -408,7 +409,7 @@ func (b *hospitalClinicaDetalleBuilder) WithUnidadMedida(v int) *hospitalClinica
 }
 
 func (b *hospitalClinicaDetalleBuilder) WithPrecioUnitario(v float64) *hospitalClinicaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -419,13 +420,13 @@ func (b *hospitalClinicaDetalleBuilder) WithMontoDescuento(v *float64) *hospital
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *hospitalClinicaDetalleBuilder) WithSubTotal(v float64) *hospitalClinicaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

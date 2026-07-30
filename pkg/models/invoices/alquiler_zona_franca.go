@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -214,7 +215,7 @@ func (b *alquilerZFCabeceraBuilder) WithNumeroTarjeta(v *int64) *alquilerZFCabec
 }
 
 func (b *alquilerZFCabeceraBuilder) WithMontoTotal(v float64) *alquilerZFCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -225,13 +226,13 @@ func (b *alquilerZFCabeceraBuilder) WithCodigoMoneda(v int) *alquilerZFCabeceraB
 }
 
 func (b *alquilerZFCabeceraBuilder) WithTipoCambio(v float64) *alquilerZFCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *alquilerZFCabeceraBuilder) WithMontoTotalMoneda(v float64) *alquilerZFCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -242,7 +243,7 @@ func (b *alquilerZFCabeceraBuilder) WithDescuentoAdicional(v *float64) *alquiler
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -278,7 +279,7 @@ func (b *alquilerZFCabeceraBuilder) WithUsuario(v string) *alquilerZFCabeceraBui
 }
 
 func (b *alquilerZFCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *alquilerZFCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -318,7 +319,7 @@ func (b *alquilerZFDetalleBuilder) WithDescripcion(v string) *alquilerZFDetalleB
 }
 
 func (b *alquilerZFDetalleBuilder) WithCantidad(v float64) *alquilerZFDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -329,7 +330,7 @@ func (b *alquilerZFDetalleBuilder) WithUnidadMedida(v int) *alquilerZFDetalleBui
 }
 
 func (b *alquilerZFDetalleBuilder) WithPrecioUnitario(v float64) *alquilerZFDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -340,13 +341,13 @@ func (b *alquilerZFDetalleBuilder) WithMontoDescuento(v *float64) *alquilerZFDet
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *alquilerZFDetalleBuilder) WithSubTotal(v float64) *alquilerZFDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

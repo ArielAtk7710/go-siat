@@ -8,7 +8,7 @@ import (
 	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/documents"
 	"github.com/ron86i/go-siat/v2/pkg/models"
-	"github.com/ron86i/go-siat/v2/pkg/utils"
+	"github.com/shopspring/decimal"
 )
 
 // EntidadFinanciera representa la estructura completa de una factura de entidad financiera lista para ser procesada.
@@ -202,19 +202,19 @@ func (b *entidadFinancieraCabeceraBuilder) WithMontoTotalArrendamientoFinanciero
 	if v == nil {
 		b.cabecera.MontoTotalArrendamientoFinanciero = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.MontoTotalArrendamientoFinanciero = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
 }
 
 func (b *entidadFinancieraCabeceraBuilder) WithMontoTotal(v float64) *entidadFinancieraCabeceraBuilder {
-	b.cabecera.MontoTotal = utils.Round(v, 2)
+	b.cabecera.MontoTotal = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
 func (b *entidadFinancieraCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *entidadFinancieraCabeceraBuilder {
-	b.cabecera.MontoTotalSujetoIva = utils.Round(v, 2)
+	b.cabecera.MontoTotalSujetoIva = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -224,12 +224,12 @@ func (b *entidadFinancieraCabeceraBuilder) WithCodigoMoneda(v int) *entidadFinan
 }
 
 func (b *entidadFinancieraCabeceraBuilder) WithTipoCambio(v float64) *entidadFinancieraCabeceraBuilder {
-	b.cabecera.TipoCambio = utils.Round(v, 2)
+	b.cabecera.TipoCambio = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
 func (b *entidadFinancieraCabeceraBuilder) WithMontoTotalMoneda(v float64) *entidadFinancieraCabeceraBuilder {
-	b.cabecera.MontoTotalMoneda = utils.Round(v, 2)
+	b.cabecera.MontoTotalMoneda = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -237,7 +237,7 @@ func (b *entidadFinancieraCabeceraBuilder) WithDescuentoAdicional(v *float64) *e
 	if v == nil {
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
@@ -309,7 +309,7 @@ func (b *entidadFinancieraDetalleBuilder) WithDescripcion(v string) *entidadFina
 }
 
 func (b *entidadFinancieraDetalleBuilder) WithCantidad(v float64) *entidadFinancieraDetalleBuilder {
-	b.detalle.Cantidad = utils.Round(v, 2)
+	b.detalle.Cantidad = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -319,7 +319,7 @@ func (b *entidadFinancieraDetalleBuilder) WithUnidadMedida(v int) *entidadFinanc
 }
 
 func (b *entidadFinancieraDetalleBuilder) WithPrecioUnitario(v float64) *entidadFinancieraDetalleBuilder {
-	b.detalle.PrecioUnitario = utils.Round(v, 2)
+	b.detalle.PrecioUnitario = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 
@@ -327,14 +327,14 @@ func (b *entidadFinancieraDetalleBuilder) WithMontoDescuento(v *float64) *entida
 	if v == nil {
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: nil}
 	} else {
-		r := utils.Round(*v, 2)
+		r := decimal.NewFromFloat(*v).Round(2).InexactFloat64()
 		b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &r}
 	}
 	return b
 }
 
 func (b *entidadFinancieraDetalleBuilder) WithSubTotal(v float64) *entidadFinancieraDetalleBuilder {
-	b.detalle.SubTotal = utils.Round(v, 2)
+	b.detalle.SubTotal = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	return b
 }
 

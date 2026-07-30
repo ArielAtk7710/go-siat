@@ -2,8 +2,9 @@ package invoices
 
 import (
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -223,13 +224,13 @@ func (b *suministroEnergiaCabeceraBuilder) WithNumeroTarjeta(v *int64) *suminist
 }
 
 func (b *suministroEnergiaCabeceraBuilder) WithMontoTotal(v float64) *suministroEnergiaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
 
 func (b *suministroEnergiaCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *suministroEnergiaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -240,7 +241,7 @@ func (b *suministroEnergiaCabeceraBuilder) WithMontoGiftCard(v *float64) *sumini
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.MontoGiftCard = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -251,7 +252,7 @@ func (b *suministroEnergiaCabeceraBuilder) WithDescuentoAdicional(v *float64) *s
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -282,13 +283,13 @@ func (b *suministroEnergiaCabeceraBuilder) WithCodigoMoneda(v int) *suministroEn
 }
 
 func (b *suministroEnergiaCabeceraBuilder) WithTipoCambio(v float64) *suministroEnergiaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *suministroEnergiaCabeceraBuilder) WithMontoTotalMoneda(v float64) *suministroEnergiaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -339,7 +340,7 @@ func (b *suministroEnergiaDetalleBuilder) WithDescripcion(v string) *suministroE
 
 func (b *suministroEnergiaDetalleBuilder) WithCantidad(v float64) *suministroEnergiaDetalleBuilder {
 	// Sector 31 usa 4 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 4, 64), 64)
+	v = decimal.NewFromFloat(v).Round(4).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -351,7 +352,7 @@ func (b *suministroEnergiaDetalleBuilder) WithUnidadMedida(v int) *suministroEne
 
 func (b *suministroEnergiaDetalleBuilder) WithPrecioUnitario(v float64) *suministroEnergiaDetalleBuilder {
 	// Sector 31 usa 4 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 4, 64), 64)
+	v = decimal.NewFromFloat(v).Round(4).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -363,14 +364,14 @@ func (b *suministroEnergiaDetalleBuilder) WithMontoDescuento(v *float64) *sumini
 	}
 	value := *v
 	// Sector 31 usa 4 decimales
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 4, 64), 64)
+	value = decimal.NewFromFloat(value).Round(4).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *suministroEnergiaDetalleBuilder) WithSubTotal(v float64) *suministroEnergiaDetalleBuilder {
 	// Sector 31 usa 4 decimales
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 4, 64), 64)
+	v = decimal.NewFromFloat(v).Round(4).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }

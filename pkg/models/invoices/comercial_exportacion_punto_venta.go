@@ -3,8 +3,9 @@ package invoices
 import (
 	"encoding/json"
 	"encoding/xml"
-	"strconv"
 	"time"
+
+	"github.com/shopspring/decimal"
 
 	"github.com/ron86i/go-siat/v2"
 	"github.com/ron86i/go-siat/v2/pkg/models"
@@ -240,7 +241,7 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithNumeroTarjeta(v *int64) 
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithMontoTotal(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotal = v
 	return b
 }
@@ -262,7 +263,7 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithCostosGastosNacionales(v
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithTotalGastosNacionalesFob(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.TotalGastosNacionalesFob = v
 	return b
 }
@@ -289,7 +290,7 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithTotalGastosInternacional
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.TotalGastosInternacionales = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -300,13 +301,13 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithPrecioValorBruto(v *floa
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.PrecioValorBruto = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithMontoDetalle(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoDetalle = v
 	return b
 }
@@ -317,13 +318,13 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithCodigoMoneda(v int) *com
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithTipoCambio(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.cabecera.TipoCambio = v
 	return b
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithMontoTotalMoneda(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalMoneda = v
 	return b
 }
@@ -360,7 +361,7 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithDescuentoAdicional(v *fl
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 2, 64), 64)
+	value = decimal.NewFromFloat(value).Round(2).InexactFloat64()
 	b.cabecera.DescuentoAdicional = datatype.Nilable[float64]{Value: &value}
 	return b
 }
@@ -396,7 +397,7 @@ func (b *comercialExportacionPVentaCabeceraBuilder) WithUsuario(v string) *comer
 }
 
 func (b *comercialExportacionPVentaCabeceraBuilder) WithMontoTotalSujetoIva(v float64) *comercialExportacionPVentaCabeceraBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 2, 64), 64)
+	v = decimal.NewFromFloat(v).Round(2).InexactFloat64()
 	b.cabecera.MontoTotalSujetoIva = v
 	return b
 }
@@ -441,7 +442,7 @@ func (b *comercialExportacionPVentaDetalleBuilder) WithDescripcion(v string) *co
 }
 
 func (b *comercialExportacionPVentaDetalleBuilder) WithCantidad(v float64) *comercialExportacionPVentaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.Cantidad = v
 	return b
 }
@@ -452,7 +453,7 @@ func (b *comercialExportacionPVentaDetalleBuilder) WithUnidadMedida(v int) *come
 }
 
 func (b *comercialExportacionPVentaDetalleBuilder) WithPrecioUnitario(v float64) *comercialExportacionPVentaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.PrecioUnitario = v
 	return b
 }
@@ -463,13 +464,13 @@ func (b *comercialExportacionPVentaDetalleBuilder) WithMontoDescuento(v *float64
 		return b
 	}
 	value := *v
-	value, _ = strconv.ParseFloat(strconv.FormatFloat(value, 'f', 5, 64), 64)
+	value = decimal.NewFromFloat(value).Round(5).InexactFloat64()
 	b.detalle.MontoDescuento = datatype.Nilable[float64]{Value: &value}
 	return b
 }
 
 func (b *comercialExportacionPVentaDetalleBuilder) WithSubTotal(v float64) *comercialExportacionPVentaDetalleBuilder {
-	v, _ = strconv.ParseFloat(strconv.FormatFloat(v, 'f', 5, 64), 64)
+	v = decimal.NewFromFloat(v).Round(5).InexactFloat64()
 	b.detalle.SubTotal = v
 	return b
 }
