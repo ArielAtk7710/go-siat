@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.2](https://github.com/ron86i/go-siat/compare/v2.1.1...v2.1.2) (2026-08-15)
+
+
+### Bug Fixes
+
+* **deps:** bump github.com/russellhaering/goxmldsig from 1.6.0 to 1.6.1 ([37f4461](https://github.com/ron86i/go-siat/commit/37f446103c0a4b813d2f49fa22daad47b4301a24))
+* **deps:** bump github.com/russellhaering/goxmldsig from 1.6.0 to 1.6.1 ([88891a9](https://github.com/ron86i/go-siat/commit/88891a92121152d72a768c9b2bbfd7c6df290b12))
+
 ## [2.1.1](https://github.com/ron86i/go-siat/compare/v2.1.0...v2.1.1) (2026-07-30)
 
 
