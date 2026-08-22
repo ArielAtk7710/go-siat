@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.1.3](https://github.com/ron86i/go-siat/compare/v2.1.2...v2.1.3) (2026-08-22)
+
+
+### Bug Fixes
+
+* **deps:** bump github.com/beevik/etree from 1.7.0 to 1.7.1 ([23e27b4](https://github.com/ron86i/go-siat/commit/23e27b460c28225012c9b4e857dad681df1b0ea3))
+* **deps:** bump github.com/beevik/etree from 1.7.0 to 1.7.1 ([feb0e48](https://github.com/ron86i/go-siat/commit/feb0e48a903799a8c4c7d4da68a6f01a8f5e0f46))
+* **deps:** bump github.com/stretchr/testify from 1.11.1 to 1.12.1 ([cf43b18](https://github.com/ron86i/go-siat/commit/cf43b189f5b220aef41a51b5939a00da7b688311))
+* **deps:** bump github.com/stretchr/testify from 1.11.1 to 1.12.1 ([4f473df](https://github.com/ron86i/go-siat/commit/4f473df830fc64fe083839de415e5565ce9cfb1b))
+* **deps:** bump golang.org/x/crypto from 0.54.0 to 0.55.0 ([8a672cd](https://github.com/ron86i/go-siat/commit/8a672cd6f83b64b2d157dc342fe02549771096cf))
+* **deps:** bump golang.org/x/crypto from 0.54.0 to 0.55.0 ([9ce2ad5](https://github.com/ron86i/go-siat/commit/9ce2ad5f22e7c3ac3d6363e46e30ab312d85a687))
+
 ## [2.1.2](https://github.com/ron86i/go-siat/compare/v2.1.1...v2.1.2) (2026-08-15)
 
 
