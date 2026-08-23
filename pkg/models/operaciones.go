@@ -42,6 +42,9 @@ type RegistroEventoSignificativo struct {
 
 // --- Constructores de Builders a nivel de paquete ---
 
+// NewRegistroPuntoVentaBuilder crea un constructor para la solicitud de
+// registro de un punto de venta. La modalidad debe establecerse explícitamente
+// con WithCodigoModalidad porque el SIAT la exige para esta operación.
 func NewRegistroPuntoVentaBuilder() *registroPuntoVentaBuilder {
 	return &registroPuntoVentaBuilder{
 		request: &operaciones.RegistroPuntoVenta{},
@@ -94,6 +97,13 @@ func NewConsultaEventoSignificativoBuilder() *consultaEventoSignificativoBuilder
 
 type registroPuntoVentaBuilder struct {
 	request *operaciones.RegistroPuntoVenta
+}
+
+// WithCodigoModalidad define la modalidad de facturación autorizada para el
+// contribuyente que registra el punto de venta.
+func (b *registroPuntoVentaBuilder) WithCodigoModalidad(codigoModalidad int) *registroPuntoVentaBuilder {
+	b.request.SolicitudRegistroPuntoVenta.CodigoModalidad = codigoModalidad
+	return b
 }
 
 func (b *registroPuntoVentaBuilder) WithCodigoSucursal(codigoSucursal int) *registroPuntoVentaBuilder {

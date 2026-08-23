@@ -147,7 +147,8 @@ performSoapRequest es una función genérica que encapsula el flujo completo de 
 
 1. Obtiene la solicitud interna desde la interfaz opaca.
 
-2. Inyecta automáticamente los parámetros globales de la sesión (NIT, Sistema, Ambiente, Modalidad).
+ 2. Inyecta automáticamente los parámetros globales de la sesión (NIT, Sistema y Ambiente).
+    Los parámetros propios de cada operación, como la modalidad, se definen en su builder.
 
 3. Construye el cuerpo XML (Envelope SOAP).
 
