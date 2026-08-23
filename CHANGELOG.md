@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.4](https://github.com/ron86i/go-siat/compare/v2.1.3...v2.1.4) (2026-08-23)
+
+
+### Bug Fixes
+
+* **models:** incluir modalidad en punto de venta ([f5fb059](https://github.com/ron86i/go-siat/commit/f5fb05990371fd9c62bb90af74857ec9088f4a5f))
+* **models:** incluir modalidad en punto de venta ([4205747](https://github.com/ron86i/go-siat/commit/42057479ad38aeb4899a02b848f0ddae5df8038c))
+
 ## [2.1.3](https://github.com/ron86i/go-siat/compare/v2.1.2...v2.1.3) (2026-08-22)
 
 
