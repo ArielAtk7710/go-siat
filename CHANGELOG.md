@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.5](https://github.com/ron86i/go-siat/compare/v2.1.4...v2.1.5) (2026-08-24)
+
+
+### Bug Fixes
+
+* **models:** agregar modalidad comisionista ([721aa74](https://github.com/ron86i/go-siat/commit/721aa74c64c41053cba8934d24642b18c6b04884))
+* **models:** agregar modalidad comisionista ([59fe8a6](https://github.com/ron86i/go-siat/commit/59fe8a65a1a6c77873233e169ccc57fe9cb146dd))
+
 ## [2.1.4](https://github.com/ron86i/go-siat/compare/v2.1.3...v2.1.4) (2026-08-23)
 
 
