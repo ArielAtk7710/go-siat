@@ -63,6 +63,9 @@ func NewCierrePuntoVentaBuilder() *cierrePuntoVentaBuilder {
 	}
 }
 
+// NewRegistroPuntoVentaComisionistaBuilder crea un constructor para el registro
+// de un punto de venta comisionista. La modalidad debe establecerse con
+// WithCodigoModalidad porque el SIAT la exige para esta operación.
 func NewRegistroPuntoVentaComisionistaBuilder() *registroPuntoVentaComisionistaBuilder {
 	return &registroPuntoVentaComisionistaBuilder{
 		request: &operaciones.RegistroPuntoVentaComisionista{},
@@ -178,6 +181,12 @@ func (b *cierrePuntoVentaBuilder) Build() CierrePuntoVenta {
 
 type registroPuntoVentaComisionistaBuilder struct {
 	request *operaciones.RegistroPuntoVentaComisionista
+}
+
+// WithCodigoModalidad define la modalidad de facturación autorizada para el comitente.
+func (b *registroPuntoVentaComisionistaBuilder) WithCodigoModalidad(codigoModalidad int) *registroPuntoVentaComisionistaBuilder {
+	b.request.SolicitudPuntoVentaComisionista.CodigoModalidad = codigoModalidad
+	return b
 }
 
 func (b *registroPuntoVentaComisionistaBuilder) WithCodigoSucursal(codigoSucursal int) *registroPuntoVentaComisionistaBuilder {
