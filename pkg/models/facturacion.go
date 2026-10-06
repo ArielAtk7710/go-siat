@@ -487,8 +487,36 @@ type RecepcionPaqueteFacturaBuilder struct {
 
 func NewRecepcionPaqueteFacturaBuilder() *RecepcionPaqueteFacturaBuilder {
 	return &RecepcionPaqueteFacturaBuilder{
-		request: &facturacion.RecepcionPaqueteFactura{},
+		request: &facturacion.RecepcionPaqueteFactura{
+			SolicitudServicioRecepcionPaquete: facturacion.SolicitudRecepcionPaquete{
+				SolicitudRecepcionFactura: facturacion.SolicitudRecepcionFactura{
+					SolicitudRecepcion: facturacion.SolicitudRecepcion{
+						CodigoEmision: EmisionOffline,
+					},
+				},
+			},
+		},
 	}
+}
+
+func (b *RecepcionPaqueteFacturaBuilder) WithCodigoAmbiente(codigoAmbiente int) *RecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoAmbiente = codigoAmbiente
+	return b
+}
+
+func (b *RecepcionPaqueteFacturaBuilder) WithCodigoModalidad(codigoModalidad int) *RecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoModalidad = codigoModalidad
+	return b
+}
+
+func (b *RecepcionPaqueteFacturaBuilder) WithCodigoSistema(codigoSistema string) *RecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoSistema = codigoSistema
+	return b
+}
+
+func (b *RecepcionPaqueteFacturaBuilder) WithNit(nit int64) *RecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.Nit = nit
+	return b
 }
 
 func (b *RecepcionPaqueteFacturaBuilder) WithCodigoSucursal(codigoSucursal int) *RecepcionPaqueteFacturaBuilder {
@@ -601,26 +629,6 @@ func (b *RecepcionPaqueteFacturaBuilder) WithFacturasEnLoteContext(ctx context.C
 	return nil
 }
 
-func (b *RecepcionPaqueteFacturaBuilder) WithCodigoModalidad(codigoModalidad int) *RecepcionPaqueteFacturaBuilder {
-	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoModalidad = codigoModalidad
-	return b
-}
-
-func (b *RecepcionPaqueteFacturaBuilder) WithCodigoAmbiente(codigoAmbiente int) *RecepcionPaqueteFacturaBuilder {
-	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoAmbiente = codigoAmbiente
-	return b
-}
-
-func (b *RecepcionPaqueteFacturaBuilder) WithCodigoSistema(codigoSistema string) *RecepcionPaqueteFacturaBuilder {
-	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.CodigoSistema = codigoSistema
-	return b
-}
-
-func (b *RecepcionPaqueteFacturaBuilder) WithNit(nit int64) *RecepcionPaqueteFacturaBuilder {
-	b.request.SolicitudServicioRecepcionPaquete.SolicitudRecepcionFactura.SolicitudRecepcion.Nit = nit
-	return b
-}
-
 func (b *RecepcionPaqueteFacturaBuilder) Build() RecepcionPaqueteFactura {
 	return RecepcionPaqueteFactura{RequestWrapper: NewRequestWrapper(b.request)}
 }
@@ -632,8 +640,19 @@ type ValidacionRecepcionPaqueteFacturaBuilder struct {
 
 func NewValidacionRecepcionPaqueteFacturaBuilder() *ValidacionRecepcionPaqueteFacturaBuilder {
 	return &ValidacionRecepcionPaqueteFacturaBuilder{
-		request: &facturacion.ValidacionRecepcionPaqueteFactura{},
+		request: &facturacion.ValidacionRecepcionPaqueteFactura{
+			SolicitudServicioValidacionRecepcionPaquete: facturacion.SolicitudValidacionRecepcion{
+				SolicitudRecepcion: facturacion.SolicitudRecepcion{
+					CodigoEmision: EmisionOffline,
+				},
+			},
+		},
 	}
+}
+
+func (b *ValidacionRecepcionPaqueteFacturaBuilder) WithCodigoAmbiente(codigoAmbiente int) *ValidacionRecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioValidacionRecepcionPaquete.SolicitudRecepcion.CodigoAmbiente = codigoAmbiente
+	return b
 }
 
 func (b *ValidacionRecepcionPaqueteFacturaBuilder) WithCodigoSucursal(codigoSucursal int) *ValidacionRecepcionPaqueteFacturaBuilder {
@@ -673,6 +692,11 @@ func (b *ValidacionRecepcionPaqueteFacturaBuilder) WithCodigoEmision(codigoEmisi
 
 func (b *ValidacionRecepcionPaqueteFacturaBuilder) WithCodigoRecepcion(codigoRecepcion string) *ValidacionRecepcionPaqueteFacturaBuilder {
 	b.request.SolicitudServicioValidacionRecepcionPaquete.CodigoRecepcion = codigoRecepcion
+	return b
+}
+
+func (b *ValidacionRecepcionPaqueteFacturaBuilder) WithCodigoSistema(codigoSistema string) *ValidacionRecepcionPaqueteFacturaBuilder {
+	b.request.SolicitudServicioValidacionRecepcionPaquete.SolicitudRecepcion.CodigoSistema = codigoSistema
 	return b
 }
 
