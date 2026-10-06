@@ -3,7 +3,7 @@ module github.com/ron86i/go-siat/v2
 go 1.26.0
 
 require (
-	github.com/beevik/etree v1.8.0
+	github.com/beevik/etree v1.8.1
 	github.com/joho/godotenv v1.5.1
 	github.com/russellhaering/goxmldsig v1.6.1
 	github.com/shopspring/decimal v1.4.0

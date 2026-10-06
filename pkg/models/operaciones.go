@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 	"github.com/ron86i/go-siat/v2/internal/core/domain/siat/operaciones"
 )
 
@@ -293,6 +294,21 @@ type registroEventoSignificativoBuilder struct {
 	request *operaciones.RegistroEventoSignificativo
 }
 
+func (b *registroEventoSignificativoBuilder) WithCodigoAmbiente(codigoAmbiente int) *registroEventoSignificativoBuilder {
+	b.request.SolicitudEventoSignificativo.CodigoAmbiente = codigoAmbiente
+	return b
+}
+
+func (b *registroEventoSignificativoBuilder) WithCodigoSistema(codigoSistema string) *registroEventoSignificativoBuilder {
+	b.request.SolicitudEventoSignificativo.CodigoSistema = codigoSistema
+	return b
+}
+
+func (b *registroEventoSignificativoBuilder) WithNit(nit int64) *registroEventoSignificativoBuilder {
+	b.request.SolicitudEventoSignificativo.Nit = nit
+	return b
+}
+
 func (b *registroEventoSignificativoBuilder) WithCodigoSucursal(codigoSucursal int) *registroEventoSignificativoBuilder {
 	b.request.SolicitudEventoSignificativo.CodigoSucursal = codigoSucursal
 	return b
@@ -329,12 +345,12 @@ func (b *registroEventoSignificativoBuilder) WithDescripcion(desc string) *regis
 }
 
 func (b *registroEventoSignificativoBuilder) WithFechaInicio(t time.Time) *registroEventoSignificativoBuilder {
-	b.request.SolicitudEventoSignificativo.FechaHoraInicioEvento = t
+	b.request.SolicitudEventoSignificativo.FechaHoraInicioEvento = datatype.NewTimeSiat(t)
 	return b
 }
 
 func (b *registroEventoSignificativoBuilder) WithFechaFin(t time.Time) *registroEventoSignificativoBuilder {
-	b.request.SolicitudEventoSignificativo.FechaHoraFinEvento = t
+	b.request.SolicitudEventoSignificativo.FechaHoraFinEvento = datatype.NewTimeSiat(t)
 	return b
 }
 
