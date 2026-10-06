@@ -3,6 +3,8 @@ package operaciones
 import (
 	"encoding/xml"
 	"time"
+
+	"github.com/ron86i/go-siat/v2/internal/core/domain/datatype"
 )
 
 // RegistroEventoSignificativo es el wrapper para registrar un evento
@@ -13,18 +15,18 @@ type RegistroEventoSignificativo struct {
 
 // SolicitudEventoSignificativo representa los datos para registrar un evento
 type SolicitudEventoSignificativo struct {
-	CodigoAmbiente        int       `xml:"codigoAmbiente" json:"codigoAmbiente"`
-	CodigoMotivoEvento    int       `xml:"codigoMotivoEvento" json:"codigoMotivoEvento"`
-	CodigoPuntoVenta      int       `xml:"codigoPuntoVenta,omitempty" json:"codigoPuntoVenta,omitempty"`
-	CodigoSistema         string    `xml:"codigoSistema" json:"codigoSistema"`
-	CodigoSucursal        int       `xml:"codigoSucursal" json:"codigoSucursal"`
-	Cufd                  string    `xml:"cufd" json:"cufd"`
-	CufdEvento            string    `xml:"cufdEvento" json:"cufdEvento"`
-	Cuis                  string    `xml:"cuis" json:"cuis"`
-	Descripcion           string    `xml:"descripcion" json:"descripcion"`
-	FechaHoraFinEvento    time.Time `xml:"fechaHoraFinEvento" json:"fechaHoraFinEvento"`
-	FechaHoraInicioEvento time.Time `xml:"fechaHoraInicioEvento" json:"fechaHoraInicioEvento"`
-	Nit                   int64     `xml:"nit" json:"nit"`
+	CodigoAmbiente        int               `xml:"codigoAmbiente" json:"codigoAmbiente"`
+	CodigoMotivoEvento    int               `xml:"codigoMotivoEvento" json:"codigoMotivoEvento"`
+	CodigoPuntoVenta      int               `xml:"codigoPuntoVenta,omitempty" json:"codigoPuntoVenta,omitempty"`
+	CodigoSistema         string            `xml:"codigoSistema" json:"codigoSistema"`
+	CodigoSucursal        int               `xml:"codigoSucursal" json:"codigoSucursal"`
+	Cufd                  string            `xml:"cufd" json:"cufd"`
+	CufdEvento            string            `xml:"cufdEvento" json:"cufdEvento"`
+	Cuis                  string            `xml:"cuis" json:"cuis"`
+	Descripcion           string            `xml:"descripcion" json:"descripcion"`
+	FechaHoraFinEvento    datatype.TimeSiat `xml:"fechaHoraFinEvento" json:"fechaHoraFinEvento"`
+	FechaHoraInicioEvento datatype.TimeSiat `xml:"fechaHoraInicioEvento" json:"fechaHoraInicioEvento"`
+	Nit                   int64             `xml:"nit" json:"nit"`
 }
 
 // RegistroEventoSignificativoResponse es el wrapper para la respuesta de registro de evento
